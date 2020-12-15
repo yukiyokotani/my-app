@@ -1,0 +1,36 @@
+version: '3.4'
+services:
+  # back-end api built with golang
+  golang-prod:
+    restart: always
+    build: 
+      context: golang
+      target: prod
+    ports:
+      - "8000:8000"
+    env_file: .env
+
+  # front-end built with react
+  react-prod:
+    restart: always
+    build: 
+      context: react
+      target: prod
+    ports:
+      - "3000:3000"
+
+  # nginx is used for ssl termination
+  nginx-prod:
+    restart: always
+    build: 
+      context: nginx
+      target: prod
+    # volumes:
+    #  - ../certs-data:/data/letsencrypt
+    #  - /etc/letsencrypt/:/etc/letsencrypt/
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - golang-prod
+      - react-prod
