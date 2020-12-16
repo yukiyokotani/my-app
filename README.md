@@ -1,4 +1,6 @@
 # WEBアプリケーション雛形 (作成中)
+![Lint](https://github.com/yokotani92/my-app/workflows/Lint/badge.svg)
+
 ## 構成
 - server-side: golang
 - client-side: react (Next.js)
