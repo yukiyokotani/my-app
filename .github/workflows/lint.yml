@@ -1,4 +1,4 @@
-name: Lint
+name: ESLint
 
 on:
   push:
@@ -9,7 +9,7 @@ on:
 
 jobs:
   lint:
-    name: Lint
+    name: ESLint
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
