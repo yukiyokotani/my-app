@@ -1,5 +1,6 @@
 # WEBアプリケーション雛形 (作成中)
-![Lint](https://github.com/yokotani92/my-app/workflows/Lint/badge.svg)
+![ESLint](https://github.com/yokotani92/my-app/workflows/ESLint/badge.svg)
+![Jest](https://github.com/yokotani92/my-app/workflows/Jest/badge.svg)
 
 ## 構成
 - server-side: golang
