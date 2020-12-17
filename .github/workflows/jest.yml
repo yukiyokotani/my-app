@@ -1,4 +1,4 @@
-name: Test
+name: Jest
 
 on:
   push:
@@ -9,7 +9,7 @@ on:
 
 jobs:
   lint:
-    name: Test
+    name: Jest
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
