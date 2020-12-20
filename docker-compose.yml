@@ -23,11 +23,11 @@ services:
     ports:
       - "3000:3000"
 
-  # # postgres is our primary data store
-  # postgres:
-  #   build: postgres
-  #   volumes:
-  #     - ./postgres/migrations:/docker-entrypoint-initdb.d/migrations
+  # postgres is our primary data store
+  postgres:
+    build: postgres
+    volumes:
+      - ./postgres/migrations:/docker-entrypoint-initdb.d/migrations
 
   # nginx is used for ssl termination
   nginx:
