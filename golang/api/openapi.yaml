@@ -1,0 +1,50 @@
+openapi: 3.0.1
+info:
+  description: This is sample.
+  title: sample API
+  version: 1.0.0
+servers:
+- url: /
+paths:
+  /pets/{id}:
+    get:
+      description: Returns a single pet
+      parameters:
+      - description: ID of pet to fetch
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          format: int64
+          type: integer
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pets'
+          description: successful pet response
+components:
+  schemas:
+    Pets:
+      example:
+        name: doggie
+        id: 0
+        status: available
+      properties:
+        id:
+          format: int64
+          type: integer
+        name:
+          example: doggie
+          type: string
+        status:
+          description: pet status in the store
+          enum:
+          - available
+          - pending
+          - sold
+          type: string
+      type: object

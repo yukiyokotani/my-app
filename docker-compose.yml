@@ -10,8 +10,8 @@ services:
     ports:
       - "8000:8000"
     env_file: .env.example
-    # depends_on:
-    #   - postgres
+    depends_on:
+      - postgres
 
   # front-end built with react
   react:
