@@ -15,7 +15,7 @@ app.prepare().then(() => {
   server.use(
     '/api',
     createProxyMiddleware({
-      target: 'http://golang:8000',
+      target: 'http://golang:8080',
       pathRewrite: {
         '^/api': '',
       },

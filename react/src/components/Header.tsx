@@ -53,8 +53,8 @@ const Header: React.FC = () => {
           <Link href="/about">
             <Button color="inherit">Counter</Button>
           </Link>
-          <Link href="/batman">
-            <Button color="inherit">Batman</Button>
+          <Link href="/hinatazaka">
+            <Button color="inherit">日向坂</Button>
           </Link>
           <ThemeSwitch />
         </ToolBar>
