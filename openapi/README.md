@@ -2,11 +2,11 @@
 ## golang
 ```bash
 // openapi-generator generate -i openapi.yml -g go-server -o ../golang 
-make generategolang
+make generate-golang
 ```
 
 ## react
 ```bash
 // openapi-generator generate -i openapi.yml -g typescript-axios -o ../react/api
-make generatereact
+make generate-react
 ```
