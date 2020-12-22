@@ -1,7 +1,7 @@
 // tslint:disable
 /**
- * sample API
- * This is sample.
+ * Hinatazaka API
+ * 日向坂46を題材にしたサンプルAPI
  *
  * The version of the OpenAPI document: 1.0.0
  * 

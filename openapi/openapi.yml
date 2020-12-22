@@ -1,14 +1,12 @@
 openapi: 3.0.1
-
 info:
-  title: "sample API"
-  description: "This is sample."
-  version: "1.0.0"
-
+  title: Hinatazaka API
+  description: 日向坂46を題材にしたサンプルAPI
+  version: 1.0.0
 paths:
-  /pets/{id}:
+  '/member/{id}':
     get:
-      description: Returns a single pet
+      description: メンバーの情報を取得する
       parameters:
         - name: id
           in: path
@@ -18,28 +16,105 @@ paths:
             type: integer
             format: int64
       responses:
-        200:
-          description: successful pet response
+        '200':
+          description: successful member response
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Pets'
-
+                $ref: '#/components/schemas/Member'
+              examples:
+                dummy:
+                  value:
+                    id: 14
+                    name: 小坂菜緒
+                    age: 18
+      summary: ''
+      operationId: get-member-id
+      tags:
+        - hinatazaka
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    post:
+      summary: ''
+      operationId: post-member-id
+      responses:
+        '200':
+          description: OK
+      description: メンバーの情報を登録する
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Member'
+      tags:
+        - hinatazaka
+  '/discography/{id}':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags:
+        - hinatazaka
+      responses:
+        '200':
+          description: successful discography response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Discography'
+              examples:
+                dummy:
+                  value:
+                    id: 1
+                    title: キュン
+                    type: single
+      operationId: get-discography-id
+      description: ディスコグラフィー情報を取得する
 components:
   schemas:
-    Pets:
+    Member:
       type: object
+      title: Member
+      description: メンバー情報
       properties:
         id:
           type: integer
           format: int64
+          description: ID
         name:
           type: string
           example: doggie
-        status:
-          type: string
-          description: pet status in the store
+          description: 名前
+        age:
+          type: number
+          description: 年齢
           enum:
-          - available
-          - pending
-          - sold
+            - available
+            - pending
+            - sold
+    Discography:
+      title: Discography
+      type: object
+      description: ディスコグラフィー情報
+      properties:
+        id:
+          type: number
+          description: ID
+        title:
+          type: string
+          description: タイトル
+        type:
+          type: string
+          description: 種別
+        center_id:
+          type: number
+          description: センターのメンバーID
+servers: []

@@ -1,7 +1,7 @@
 // tslint:disable
 /**
- * sample API
- * This is sample.
+ * Hinatazaka API
+ * 日向坂46を題材にしたサンプルAPI
  *
  * The version of the OpenAPI document: 1.0.0
  * 
@@ -17,7 +17,7 @@ import { Configuration } from "./configuration";
 // @ts-ignore
 import globalAxios, { AxiosPromise, AxiosInstance } from 'axios';
 
-export const BASE_PATH = "http://localhost".replace(/\/+$/, "");
+export const BASE_PATH = "http://localhost:3000/api".replace(/\/+$/, "");
 
 /**
  *

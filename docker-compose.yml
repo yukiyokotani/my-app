@@ -8,7 +8,7 @@ services:
     volumes:
       - ./golang:/root
     ports:
-      - "8000:8000"
+      - "8080:8080"
     env_file: .env.example
     depends_on:
       - postgres
@@ -26,6 +26,8 @@ services:
   # postgres is our primary data store
   postgres:
     build: postgres
+    ports:
+      - "5432:5432"
     volumes:
       - ./postgres/migrations:/docker-entrypoint-initdb.d/migrations
 
