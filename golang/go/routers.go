@@ -15,6 +15,8 @@ import (
 	"net/http"
 	"os"
 	"strconv"
+
+	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
 )
 
@@ -30,13 +32,22 @@ type Route struct {
 type Routes []Route
 
 // Router defines the required methods for retrieving api routes
-type Router interface { 
+type Router interface {
 	Routes() Routes
 }
 
 // NewRouter creates a new router for any number of api routers
 func NewRouter(routers ...Router) *mux.Router {
 	router := mux.NewRouter().StrictSlash(true)
+
+	cors := handlers.CORS(
+		handlers.AllowedOrigins([]string{"*"}),
+		handlers.AllowedMethods([]string{"GET, OPTIONS, POST, DELETE"}),
+		handlers.AllowedHeaders([]string{"Content-Type, X-Requested-With, Origin"}),
+		handlers.AllowCredentials(),
+	)
+	router.Use(cors)
+
 	for _, api := range routers {
 		for _, route := range api.Routes() {
 			var handler http.Handler

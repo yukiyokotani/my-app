@@ -117,4 +117,6 @@ components:
         center_id:
           type: number
           description: センターのメンバーID
-servers: []
+servers:
+  - description: ''
+    url: 'http://localhost:8080'
