@@ -24,7 +24,7 @@ npm run dev
 
 ### 開発環境におけるコンテナの起動
 - 事前準備
-  - `mkcert` によって localhost 用の `localhost.pem` と `localhostkey.pem` を作成する。 [[参考](https://qiita.com/rkunihiro/items/530b5dc685bd3bff2082)]
+  - `mkcert` によって localhost 用の `localhost.pem` と `localhost-key.pem` を作成する。 [[参考](https://qiita.com/rkunihiro/items/530b5dc685bd3bff2082)]
   ```
   brew install mkcert // 未インストールの場合のみ
   mkcert --install
