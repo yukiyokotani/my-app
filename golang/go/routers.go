@@ -11,12 +11,12 @@ package openapi
 
 import (
 	"encoding/json"
+	"fmt"
 	"io/ioutil"
 	"net/http"
 	"os"
 	"strconv"
 
-	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
 )
 
@@ -39,14 +39,7 @@ type Router interface {
 // NewRouter creates a new router for any number of api routers
 func NewRouter(routers ...Router) *mux.Router {
 	router := mux.NewRouter().StrictSlash(true)
-
-	cors := handlers.CORS(
-		handlers.AllowedOrigins([]string{"*"}),
-		handlers.AllowedMethods([]string{"GET, OPTIONS, POST, DELETE"}),
-		handlers.AllowedHeaders([]string{"Content-Type, X-Requested-With, Origin"}),
-		handlers.AllowCredentials(),
-	)
-	router.Use(cors)
+	router.Use(CORSMiddleware)
 
 	for _, api := range routers {
 		for _, route := range api.Routes() {
@@ -104,4 +97,16 @@ func ReadFormFileToTempFile(r *http.Request, key string) (*os.File, error) {
 // parseIntParameter parses a sting parameter to an int64
 func parseIntParameter(param string) (int64, error) {
 	return strconv.ParseInt(param, 10, 64)
+}
+
+func CORSMiddleware(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		fmt.Println(r.Header.Get("Origin"), os.Getenv("APP_ROOT"))
+		if r.Header.Get("Origin") == os.Getenv("APP_ROOT") {
+			w.Header().Set("Access-Control-Allow-Origin", r.Header.Get("Origin"))
+			w.Header().Set("Access-Control-Allow-Methods", "GET, OPTIONS, POST, DELETE")
+			w.Header().Set("Access-Control-Allow-Headers", "Content-Type, X-Requested-With")
+		}
+		next.ServeHTTP(w, r)
+	})
 }
