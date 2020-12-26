@@ -73,19 +73,8 @@ export interface Member {
      * @type {number}
      * @memberof Member
      */
-    age?: MemberAgeEnum;
+    age?: number;
 }
-
-/**
-    * @export
-    * @enum {string}
-    */
-export enum MemberAgeEnum {
-    NUMBER_null = null,
-    NUMBER_null = null,
-    NUMBER_null = null
-}
-
 
 /**
  * HinatazakaApi - axios parameter creator

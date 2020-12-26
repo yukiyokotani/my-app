@@ -91,15 +91,10 @@ components:
           description: ID
         name:
           type: string
-          example: doggie
           description: 名前
         age:
           type: number
           description: 年齢
-          enum:
-            - available
-            - pending
-            - sold
     Discography:
       title: Discography
       type: object

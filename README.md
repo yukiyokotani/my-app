@@ -22,10 +22,10 @@ npm run dev
 ```
 - dbはこれから
 
-### 開発環境におけるコンテナの起動
+### 開発環境用コンテナの起動
 - 事前準備
   - `mkcert` によって localhost 用の `localhost.pem` と `localhost-key.pem` を作成する。 [[参考](https://qiita.com/rkunihiro/items/530b5dc685bd3bff2082)]
-  ```
+  ```bash
   brew install mkcert // 未インストールの場合のみ
   mkcert --install
   mkcert localhost
@@ -42,4 +42,10 @@ docker-compose up -d
 - 終了の際は
 ```bash
 docker-compose down
+```
+
+### デプロイ用コンテナの起動
+`.env.example` を参考に `.env` ファイルを用意した上、以下を実行する。
+```bash
+docker-compose -f docker-compose.prod.yml up -d
 ```
