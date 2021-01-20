@@ -1,2 +1,4 @@
 localhost.pem
 localhost-key.pem
+cert.pem
+key.pem
