@@ -1,6 +1,9 @@
 package openapi
 
-import "errors"
+import (
+	"errors"
+	"time"
+)
 
 // mock用の新しいservice構造体
 type DefaultMockService struct {
@@ -15,10 +18,11 @@ func NewDefaultMockService() HinatazakaApiServicer {
 // GetDiscographyId - Your GET endpoint
 func (s *DefaultMockService) GetDiscographyId(id string) (interface{}, error) {
 	discography := Discography{
-		Id:       1,
-		Title:    "キュン",
-		Type:     "single",
-		CenterId: 14,
+		Id:        1,
+		Title:     "キュン",
+		Type:      "single",
+		CenterId:  14,
+		CreatedAt: time.Now(),
 	}
 	return discography, nil
 }
@@ -26,9 +30,10 @@ func (s *DefaultMockService) GetDiscographyId(id string) (interface{}, error) {
 // GetMemberId -
 func (s *DefaultMockService) GetMemberId(id int64) (interface{}, error) {
 	member := Member{
-		Id:   14,
-		Name: "小坂菜緒",
-		Age:  18,
+		Id:        14,
+		Name:      "小坂菜緒",
+		Age:       18,
+		CreatedAt: time.Now(),
 	}
 	return member, nil
 }

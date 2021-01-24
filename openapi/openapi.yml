@@ -95,6 +95,10 @@ components:
         age:
           type: number
           description: 年齢
+        created_at:
+          type: string
+          description: レコードの作成日時
+          format: date-time
     Discography:
       title: Discography
       type: object
@@ -112,6 +116,10 @@ components:
         center_id:
           type: number
           description: センターのメンバーID
+        created_at:
+          type: string
+          description: レコードの作成日時
+          format: date-time
 servers:
   - description: ''
     url: 'http://localhost:8080'

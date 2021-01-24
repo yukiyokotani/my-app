@@ -9,6 +9,10 @@
 
 package openapi
 
+import (
+	"time"
+)
+
 // Member - メンバー情報
 type Member struct {
 
@@ -20,4 +24,7 @@ type Member struct {
 
 	// 年齢
 	Age float32 `json:"age,omitempty"`
+
+	// レコードの作成日時
+	CreatedAt time.Time `json:"created_at,omitempty"`
 }

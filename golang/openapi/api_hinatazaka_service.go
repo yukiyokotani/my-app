@@ -11,10 +11,12 @@ package openapi
 
 import (
 	"errors"
+
+	database "github.com/GIT_USER_ID/GIT_REPO_ID/database"
 )
 
 // HinatazakaApiService is a service that implents the logic for the HinatazakaApiServicer
-// This service should implement the business logic for every endpoint for the HinatazakaApi API. 
+// This service should implement the business logic for every endpoint for the HinatazakaApi API.
 // Include any external packages or services that will be required by this service.
 type HinatazakaApiService struct {
 }
@@ -26,19 +28,23 @@ func NewHinatazakaApiService() HinatazakaApiServicer {
 
 // GetDiscographyId - Your GET endpoint
 func (s *HinatazakaApiService) GetDiscographyId(id string) (interface{}, error) {
-	// TODO - update GetDiscographyId with the required logic for this service method.
-	// Add api_hinatazaka_service.go to the .openapi-generator-ignore to avoid overwriting this service implementation when updating open api generation.
-	return nil, errors.New("service method 'GetDiscographyId' not implemented")
+	discography := Discography{}
+	// err = db.Get(&member, "SELECT * FROM members LIMIT 1")
+	row := database.DB.QueryRow("SELECT * FROM discographies WHERE id=$1", id)
+	err := row.Scan(&discography.Id, &discography.Title, &discography.Type, &discography.CenterId, &discography.CreatedAt)
+	return discography, err
 }
 
-// GetMemberId - 
+// GetMemberId -
 func (s *HinatazakaApiService) GetMemberId(id int64) (interface{}, error) {
-	// TODO - update GetMemberId with the required logic for this service method.
-	// Add api_hinatazaka_service.go to the .openapi-generator-ignore to avoid overwriting this service implementation when updating open api generation.
-	return nil, errors.New("service method 'GetMemberId' not implemented")
+	member := Member{}
+	// err = db.Get(&member, "SELECT * FROM members LIMIT 1")
+	row := database.DB.QueryRow("SELECT * FROM members WHERE id=$1", id)
+	err := row.Scan(&member.Id, &member.Name, &member.Age, &member.CreatedAt)
+	return member, err
 }
 
-// PostMemberId - 
+// PostMemberId -
 func (s *HinatazakaApiService) PostMemberId(id string, member Member) (interface{}, error) {
 	// TODO - update PostMemberId with the required logic for this service method.
 	// Add api_hinatazaka_service.go to the .openapi-generator-ignore to avoid overwriting this service implementation when updating open api generation.

@@ -13,16 +13,20 @@ import (
 	"log"
 	"net/http"
 
-	openapi "github.com/GIT_USER_ID/GIT_REPO_ID/go"
+	_ "github.com/lib/pq"
+
+	database "github.com/GIT_USER_ID/GIT_REPO_ID/database"
+	openapi "github.com/GIT_USER_ID/GIT_REPO_ID/openapi"
 )
 
 func main() {
-	log.Printf("Server started")
+	database.SetUp()
+	defer database.DB.Close()
 
-	// HinatazakaApiService := openapi.NewHinatazakaApiService()
-	// HinatazakaApiController := openapi.NewHinatazakaApiController(HinatazakaApiService)
-	DefaultMockService := openapi.NewDefaultMockService()
-	HinatazakaApiController := openapi.NewHinatazakaApiController(DefaultMockService)
+	HinatazakaApiService := openapi.NewHinatazakaApiService()
+	HinatazakaApiController := openapi.NewHinatazakaApiController(HinatazakaApiService)
+	// DefaultMockService := openapi.NewDefaultMockService()
+	// HinatazakaApiController := openapi.NewHinatazakaApiController(DefaultMockService)
 
 	router := openapi.NewRouter(HinatazakaApiController)
 
