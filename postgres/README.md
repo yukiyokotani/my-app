@@ -1,7 +1,7 @@
 # Schema migration
 ## golang-migrate によるデータベース migration
 [リンク: golang-migrate](https://github.com/golang-migrate/migrate) 
-### 初回は以下のコマンドを migration のための SQL を生成する。
+### 初回は以下のコマンドによって migration のための SQL を生成する。
 [このYouTube動画](https://www.youtube.com/watch?v=0CYkrGIJkpw) が参考になる。  
 `./postgres` において以下を実行する。最後はmigrationの名前なので、必ずしも`init_schema` である必要はない。
 ```
