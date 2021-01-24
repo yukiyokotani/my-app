@@ -4,7 +4,7 @@ info:
   title: Hinatazaka API
   version: 1.0.0
 servers:
-- url: /
+- url: http://localhost:8080
 paths:
   /member/{id}:
     get:
@@ -89,7 +89,8 @@ components:
     Member:
       description: メンバー情報
       example:
-        name: doggie
+        name: name
+        created_at: 2000-01-23T04:56:07.000+00:00
         id: 0
         age: 6.027456183070403
       properties:
@@ -99,21 +100,21 @@ components:
           type: integer
         name:
           description: 名前
-          example: doggie
           type: string
         age:
           description: 年齢
-          enum:
-          - null
-          - null
-          - null
           type: number
+        created_at:
+          description: レコードの作成日時
+          format: date-time
+          type: string
       title: Member
       type: object
     Discography:
       description: ディスコグラフィー情報
       example:
         center_id: 6.027456183070403
+        created_at: 2000-01-23T04:56:07.000+00:00
         id: 0.8008281904610115
         title: title
         type: type
@@ -130,5 +131,9 @@ components:
         center_id:
           description: センターのメンバーID
           type: number
+        created_at:
+          description: レコードの作成日時
+          format: date-time
+          type: string
       title: Discography
       type: object

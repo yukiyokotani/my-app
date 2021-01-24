@@ -9,6 +9,10 @@
 
 package openapi
 
+import (
+	"time"
+)
+
 // Discography - ディスコグラフィー情報
 type Discography struct {
 
@@ -23,4 +27,7 @@ type Discography struct {
 
 	// センターのメンバーID
 	CenterId float32 `json:"center_id,omitempty"`
+
+	// レコードの作成日時
+	CreatedAt time.Time `json:"created_at,omitempty"`
 }
