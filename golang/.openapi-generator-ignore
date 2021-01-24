@@ -22,8 +22,9 @@
 # Then explicitly reverse the ignorec rule for a single file:
 #!docs/README.md
 
+main.go
 **/routers.go
-**/api_hinatazaka_service.go
+**/api_hinatazaka_service
 README.md
 Dockerfile
 .gitignore

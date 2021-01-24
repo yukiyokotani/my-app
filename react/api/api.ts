@@ -49,6 +49,12 @@ export interface Discography {
      * @memberof Discography
      */
     center_id?: number;
+    /**
+     * レコードの作成日時
+     * @type {string}
+     * @memberof Discography
+     */
+    created_at?: string;
 }
 /**
  * メンバー情報
@@ -74,6 +80,12 @@ export interface Member {
      * @memberof Member
      */
     age?: number;
+    /**
+     * レコードの作成日時
+     * @type {string}
+     * @memberof Member
+     */
+    created_at?: string;
 }
 
 /**
@@ -84,7 +96,7 @@ export const HinatazakaApiAxiosParamCreator = function (configuration?: Configur
     return {
         /**
          * ディスコグラフィー情報を取得する
-         * @summary Your GET endpoint
+         * @summary ディスコグラフィー情報
          * @param {string} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -120,6 +132,7 @@ export const HinatazakaApiAxiosParamCreator = function (configuration?: Configur
         },
         /**
          * メンバーの情報を取得する
+         * @summary メンバー情報
          * @param {number} id ID of pet to fetch
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -131,6 +144,36 @@ export const HinatazakaApiAxiosParamCreator = function (configuration?: Configur
             }
             const localVarPath = `/member/{id}`
                 .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarUrlObj.query = {...localVarUrlObj.query, ...localVarQueryParameter, ...options.query};
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 全メンバーの情報を取得する
+         * @summary 全メンバー情報
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getMembers: async (options: any = {}): Promise<RequestArgs> => {
+            const localVarPath = `/members`;
             const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
             let baseOptions;
             if (configuration) {
@@ -204,7 +247,7 @@ export const HinatazakaApiFp = function(configuration?: Configuration) {
     return {
         /**
          * ディスコグラフィー情報を取得する
-         * @summary Your GET endpoint
+         * @summary ディスコグラフィー情報
          * @param {string} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -218,12 +261,26 @@ export const HinatazakaApiFp = function(configuration?: Configuration) {
         },
         /**
          * メンバーの情報を取得する
+         * @summary メンバー情報
          * @param {number} id ID of pet to fetch
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
         async getMemberId(id: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Member>> {
             const localVarAxiosArgs = await HinatazakaApiAxiosParamCreator(configuration).getMemberId(id, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 全メンバーの情報を取得する
+         * @summary 全メンバー情報
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getMembers(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Member>>> {
+            const localVarAxiosArgs = await HinatazakaApiAxiosParamCreator(configuration).getMembers(options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -254,7 +311,7 @@ export const HinatazakaApiFactory = function (configuration?: Configuration, bas
     return {
         /**
          * ディスコグラフィー情報を取得する
-         * @summary Your GET endpoint
+         * @summary ディスコグラフィー情報
          * @param {string} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -264,12 +321,22 @@ export const HinatazakaApiFactory = function (configuration?: Configuration, bas
         },
         /**
          * メンバーの情報を取得する
+         * @summary メンバー情報
          * @param {number} id ID of pet to fetch
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
         getMemberId(id: number, options?: any): AxiosPromise<Member> {
             return HinatazakaApiFp(configuration).getMemberId(id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 全メンバーの情報を取得する
+         * @summary 全メンバー情報
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getMembers(options?: any): AxiosPromise<Array<Member>> {
+            return HinatazakaApiFp(configuration).getMembers(options).then((request) => request(axios, basePath));
         },
         /**
          * メンバーの情報を登録する
@@ -293,7 +360,7 @@ export const HinatazakaApiFactory = function (configuration?: Configuration, bas
 export class HinatazakaApi extends BaseAPI {
     /**
      * ディスコグラフィー情報を取得する
-     * @summary Your GET endpoint
+     * @summary ディスコグラフィー情報
      * @param {string} id 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -305,6 +372,7 @@ export class HinatazakaApi extends BaseAPI {
 
     /**
      * メンバーの情報を取得する
+     * @summary メンバー情報
      * @param {number} id ID of pet to fetch
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -312,6 +380,17 @@ export class HinatazakaApi extends BaseAPI {
      */
     public getMemberId(id: number, options?: any) {
         return HinatazakaApiFp(this.configuration).getMemberId(id, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 全メンバーの情報を取得する
+     * @summary 全メンバー情報
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof HinatazakaApi
+     */
+    public getMembers(options?: any) {
+        return HinatazakaApiFp(this.configuration).getMembers(options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

@@ -28,7 +28,7 @@ paths:
                     id: 14
                     name: 小坂菜緒
                     age: 18
-      summary: ''
+      summary: メンバー情報
       operationId: get-member-id
       tags:
         - hinatazaka
@@ -60,7 +60,7 @@ paths:
         in: path
         required: true
     get:
-      summary: Your GET endpoint
+      summary: ディスコグラフィー情報
       tags:
         - hinatazaka
       responses:
@@ -78,6 +78,22 @@ paths:
                     type: single
       operationId: get-discography-id
       description: ディスコグラフィー情報を取得する
+  /members:
+    get:
+      summary: 全メンバー情報
+      tags:
+        - hinatazaka
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Member'
+      operationId: get-members
+      description: 全メンバーの情報を取得する
 components:
   schemas:
     Member:

@@ -1,9 +1,9 @@
 import Layout from '../../components/Layout';
-import HinatazakaMember from '../../redux/hinatazaka/HinatazakaMember';
+import HinatazakaMembers from '../../redux/hinatazaka/HinatazakaMembers';
 
 const IndexPage: React.FC = () => (
   <Layout title="日向坂メンバー | Next.js + TypeScript Example">
-    <HinatazakaMember />
+    <HinatazakaMembers />
   </Layout>
 );
 
