@@ -3,7 +3,7 @@
 ![Jest](https://github.com/yokotani92/my-app/workflows/Jest/badge.svg)
 
 ## 構成
-- Server-side: Golang ([gorilla Mux](https://github.com/gorilla/mux), [SQLX](https://github.com/jmoiron/sqlx))
+- Server-side: Golang ([Gorilla Mux](https://github.com/gorilla/mux), [SQLX](https://github.com/jmoiron/sqlx))
 - Client-side: React ([TypeScript](https://www.typescriptlang.org/), [Next.js](https://nextjs.org/), [Material UI](https://material-ui.com/))
 - Database: Postgres
 - Others:
