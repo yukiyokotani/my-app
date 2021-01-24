@@ -12,7 +12,7 @@
     - Client: [typescript-axios](https://github.com/OpenAPITools/openapi-generator/blob/master/docs/generators/typescript-axios.md)
     - Server: [go-server](https://github.com/OpenAPITools/openapi-generator/blob/master/docs/generators/go-server.md)
 
-Application Server (Go), Web Server (NGINX), DB, NGINX (reverse-proxy) はそれぞれ Docker コンテナで用意している。同一ネットワークで実行するため `docker-compose` で起動させる。
+Application Server (Go), Web Server (NGINX), Reverse Proxy Server (NGINX), DB はそれぞれ Docker コンテナで用意している。同一ネットワークで実行するため `docker-compose` で起動させる。
 
 ## メモ
 ### 単体の起動
