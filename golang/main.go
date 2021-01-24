@@ -25,8 +25,6 @@ func main() {
 
 	HinatazakaApiService := openapi.NewHinatazakaApiService()
 	HinatazakaApiController := openapi.NewHinatazakaApiController(HinatazakaApiService)
-	// DefaultMockService := openapi.NewDefaultMockService()
-	// HinatazakaApiController := openapi.NewHinatazakaApiController(DefaultMockService)
 
 	router := openapi.NewRouter(HinatazakaApiController)
 

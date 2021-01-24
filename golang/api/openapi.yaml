@@ -33,6 +33,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Member'
           description: successful member response
+      summary: メンバー情報
       tags:
       - hinatazaka
     post:
@@ -81,7 +82,23 @@ paths:
               schema:
                 $ref: '#/components/schemas/Discography'
           description: successful discography response
-      summary: Your GET endpoint
+      summary: ディスコグラフィー情報
+      tags:
+      - hinatazaka
+  /members:
+    get:
+      description: 全メンバーの情報を取得する
+      operationId: get-members
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/Member'
+                type: array
+          description: OK
+      summary: 全メンバー情報
       tags:
       - hinatazaka
 components:

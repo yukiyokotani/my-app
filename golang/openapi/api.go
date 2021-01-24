@@ -20,6 +20,7 @@ import (
 type HinatazakaApiRouter interface { 
 	GetDiscographyId(http.ResponseWriter, *http.Request)
 	GetMemberId(http.ResponseWriter, *http.Request)
+	GetMembers(http.ResponseWriter, *http.Request)
 	PostMemberId(http.ResponseWriter, *http.Request)
 }
 
@@ -31,5 +32,6 @@ type HinatazakaApiRouter interface {
 type HinatazakaApiServicer interface { 
 	GetDiscographyId(string) (interface{}, error)
 	GetMemberId(int64) (interface{}, error)
+	GetMembers() (interface{}, error)
 	PostMemberId(string, Member) (interface{}, error)
 }

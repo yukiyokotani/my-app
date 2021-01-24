@@ -26,25 +26,36 @@ func NewHinatazakaApiService() HinatazakaApiServicer {
 	return &HinatazakaApiService{}
 }
 
-// GetDiscographyId - Your GET endpoint
+// GetDiscographyId - ディスコグラフィー情報
 func (s *HinatazakaApiService) GetDiscographyId(id string) (interface{}, error) {
 	discography := Discography{}
-	// err = db.Get(&member, "SELECT * FROM members LIMIT 1")
 	row := database.DB.QueryRow("SELECT * FROM discographies WHERE id=$1", id)
 	err := row.Scan(&discography.Id, &discography.Title, &discography.Type, &discography.CenterId, &discography.CreatedAt)
 	return discography, err
 }
 
-// GetMemberId -
+// GetMembers - 全メンバー情報
+func (s *HinatazakaApiService) GetMembers() (interface{}, error) {
+	members := []Member{}
+	rows, err := database.DB.Queryx("SELECT * FROM members")
+	for rows.Next() {
+		var m Member
+		err = rows.StructScan(&m)
+		members = append(members, m)
+	}
+	return members, err
+}
+
+// GetMemberId -メンバー情報
 func (s *HinatazakaApiService) GetMemberId(id int64) (interface{}, error) {
 	member := Member{}
-	// err = db.Get(&member, "SELECT * FROM members LIMIT 1")
+	// err = database.DB.Get(&member, "SELECT * FROM members LIMIT 1")
 	row := database.DB.QueryRow("SELECT * FROM members WHERE id=$1", id)
 	err := row.Scan(&member.Id, &member.Name, &member.Age, &member.CreatedAt)
 	return member, err
 }
 
-// PostMemberId -
+// PostMemberId -メンバー情報を更新する
 func (s *HinatazakaApiService) PostMemberId(id string, member Member) (interface{}, error) {
 	// TODO - update PostMemberId with the required logic for this service method.
 	// Add api_hinatazaka_service.go to the .openapi-generator-ignore to avoid overwriting this service implementation when updating open api generation.

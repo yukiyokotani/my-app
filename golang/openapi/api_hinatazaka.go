@@ -24,12 +24,12 @@ type HinatazakaApiController struct {
 
 // NewHinatazakaApiController creates a default api controller
 func NewHinatazakaApiController(s HinatazakaApiServicer) Router {
-	return &HinatazakaApiController{ service: s }
+	return &HinatazakaApiController{service: s}
 }
 
 // Routes returns all of the api route for the HinatazakaApiController
 func (c *HinatazakaApiController) Routes() Routes {
-	return Routes{ 
+	return Routes{
 		{
 			"GetDiscographyId",
 			strings.ToUpper("Get"),
@@ -43,6 +43,12 @@ func (c *HinatazakaApiController) Routes() Routes {
 			c.GetMemberId,
 		},
 		{
+			"GetMembers",
+			strings.ToUpper("Get"),
+			"/members",
+			c.GetMembers,
+		},
+		{
 			"PostMemberId",
 			strings.ToUpper("Post"),
 			"/member/{id}",
@@ -51,8 +57,8 @@ func (c *HinatazakaApiController) Routes() Routes {
 	}
 }
 
-// GetDiscographyId - Your GET endpoint
-func (c *HinatazakaApiController) GetDiscographyId(w http.ResponseWriter, r *http.Request) { 
+// GetDiscographyId - ディスコグラフィー情報
+func (c *HinatazakaApiController) GetDiscographyId(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
 	id := params["id"]
 	result, err := c.service.GetDiscographyId(id)
@@ -60,30 +66,41 @@ func (c *HinatazakaApiController) GetDiscographyId(w http.ResponseWriter, r *htt
 		w.WriteHeader(500)
 		return
 	}
-	
+
 	EncodeJSONResponse(result, nil, w)
 }
 
-// GetMemberId - 
-func (c *HinatazakaApiController) GetMemberId(w http.ResponseWriter, r *http.Request) { 
+// GetMemberId - メンバー情報
+func (c *HinatazakaApiController) GetMemberId(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
 	id, err := parseIntParameter(params["id"])
 	if err != nil {
 		w.WriteHeader(500)
 		return
 	}
-	
+
 	result, err := c.service.GetMemberId(id)
 	if err != nil {
 		w.WriteHeader(500)
 		return
 	}
-	
+
 	EncodeJSONResponse(result, nil, w)
 }
 
-// PostMemberId - 
-func (c *HinatazakaApiController) PostMemberId(w http.ResponseWriter, r *http.Request) { 
+// GetMembers - 全メンバー情報
+func (c *HinatazakaApiController) GetMembers(w http.ResponseWriter, r *http.Request) {
+	result, err := c.service.GetMembers()
+	if err != nil {
+		w.WriteHeader(500)
+		return
+	}
+
+	EncodeJSONResponse(result, nil, w)
+}
+
+// PostMemberId -
+func (c *HinatazakaApiController) PostMemberId(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
 	id := params["id"]
 	member := &Member{}
@@ -91,12 +108,12 @@ func (c *HinatazakaApiController) PostMemberId(w http.ResponseWriter, r *http.Re
 		w.WriteHeader(500)
 		return
 	}
-	
+
 	result, err := c.service.PostMemberId(id, *member)
 	if err != nil {
 		w.WriteHeader(500)
 		return
 	}
-	
+
 	EncodeJSONResponse(result, nil, w)
 }
