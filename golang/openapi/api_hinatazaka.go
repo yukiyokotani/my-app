@@ -33,37 +33,37 @@ func (c *HinatazakaApiController) Routes() Routes {
 		{
 			"DeleteMembersId",
 			strings.ToUpper("Delete"),
-			"/members/{id}",
+			"/api/members/{id}",
 			c.DeleteMembersId,
 		},
 		{
 			"GetDiscographyId",
 			strings.ToUpper("Get"),
-			"/discography/{id}",
+			"/api/discography/{id}",
 			c.GetDiscographyId,
 		},
 		{
 			"GetMemberId",
 			strings.ToUpper("Get"),
-			"/members/{id}",
+			"/api/members/{id}",
 			c.GetMemberId,
 		},
 		{
 			"GetMembers",
 			strings.ToUpper("Get"),
-			"/members",
+			"/api/members",
 			c.GetMembers,
 		},
 		{
 			"PostMembers",
 			strings.ToUpper("Post"),
-			"/members",
+			"/api/members",
 			c.PostMembers,
 		},
 		{
 			"PutMembersId",
 			strings.ToUpper("Put"),
-			"/members/{id}",
+			"/api/members/{id}",
 			c.PutMembersId,
 		},
 	}

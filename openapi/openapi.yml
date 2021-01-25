@@ -172,4 +172,4 @@ components:
           format: date-time
 servers:
   - description: ''
-    url: 'http://localhost:8080'
+    url: 'https://localhost/api'
