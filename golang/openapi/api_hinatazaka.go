@@ -24,41 +24,66 @@ type HinatazakaApiController struct {
 
 // NewHinatazakaApiController creates a default api controller
 func NewHinatazakaApiController(s HinatazakaApiServicer) Router {
-	return &HinatazakaApiController{service: s}
+	return &HinatazakaApiController{ service: s }
 }
 
 // Routes returns all of the api route for the HinatazakaApiController
 func (c *HinatazakaApiController) Routes() Routes {
-	return Routes{
+	return Routes{ 
+		{
+			"DeleteMembersId",
+			strings.ToUpper("Delete"),
+			"/api/members/{id}",
+			c.DeleteMembersId,
+		},
 		{
 			"GetDiscographyId",
 			strings.ToUpper("Get"),
-			"/discography/{id}",
+			"/api/discography/{id}",
 			c.GetDiscographyId,
 		},
 		{
 			"GetMemberId",
 			strings.ToUpper("Get"),
-			"/member/{id}",
+			"/api/members/{id}",
 			c.GetMemberId,
 		},
 		{
 			"GetMembers",
 			strings.ToUpper("Get"),
-			"/members",
+			"/api/members",
 			c.GetMembers,
 		},
 		{
-			"PostMemberId",
+			"PostMembers",
 			strings.ToUpper("Post"),
-			"/member/{id}",
-			c.PostMemberId,
+			"/api/members",
+			c.PostMembers,
+		},
+		{
+			"PutMembersId",
+			strings.ToUpper("Put"),
+			"/api/members/{id}",
+			c.PutMembersId,
 		},
 	}
 }
 
+// DeleteMembersId - 
+func (c *HinatazakaApiController) DeleteMembersId(w http.ResponseWriter, r *http.Request) { 
+	params := mux.Vars(r)
+	id := params["id"]
+	result, err := c.service.DeleteMembersId(id)
+	if err != nil {
+		w.WriteHeader(500)
+		return
+	}
+	
+	EncodeJSONResponse(result, nil, w)
+}
+
 // GetDiscographyId - ディスコグラフィー情報
-func (c *HinatazakaApiController) GetDiscographyId(w http.ResponseWriter, r *http.Request) {
+func (c *HinatazakaApiController) GetDiscographyId(w http.ResponseWriter, r *http.Request) { 
 	params := mux.Vars(r)
 	id := params["id"]
 	result, err := c.service.GetDiscographyId(id)
@@ -66,41 +91,58 @@ func (c *HinatazakaApiController) GetDiscographyId(w http.ResponseWriter, r *htt
 		w.WriteHeader(500)
 		return
 	}
-
+	
 	EncodeJSONResponse(result, nil, w)
 }
 
 // GetMemberId - メンバー情報
-func (c *HinatazakaApiController) GetMemberId(w http.ResponseWriter, r *http.Request) {
+func (c *HinatazakaApiController) GetMemberId(w http.ResponseWriter, r *http.Request) { 
 	params := mux.Vars(r)
 	id, err := parseIntParameter(params["id"])
 	if err != nil {
 		w.WriteHeader(500)
 		return
 	}
-
+	
 	result, err := c.service.GetMemberId(id)
 	if err != nil {
 		w.WriteHeader(500)
 		return
 	}
-
+	
 	EncodeJSONResponse(result, nil, w)
 }
 
 // GetMembers - 全メンバー情報
-func (c *HinatazakaApiController) GetMembers(w http.ResponseWriter, r *http.Request) {
+func (c *HinatazakaApiController) GetMembers(w http.ResponseWriter, r *http.Request) { 
 	result, err := c.service.GetMembers()
 	if err != nil {
 		w.WriteHeader(500)
 		return
 	}
-
+	
 	EncodeJSONResponse(result, nil, w)
 }
 
-// PostMemberId -
-func (c *HinatazakaApiController) PostMemberId(w http.ResponseWriter, r *http.Request) {
+// PostMembers - 
+func (c *HinatazakaApiController) PostMembers(w http.ResponseWriter, r *http.Request) { 
+	member := &Member{}
+	if err := json.NewDecoder(r.Body).Decode(&member); err != nil {
+		w.WriteHeader(500)
+		return
+	}
+	
+	result, err := c.service.PostMembers(*member)
+	if err != nil {
+		w.WriteHeader(500)
+		return
+	}
+	
+	EncodeJSONResponse(result, nil, w)
+}
+
+// PutMembersId - 
+func (c *HinatazakaApiController) PutMembersId(w http.ResponseWriter, r *http.Request) { 
 	params := mux.Vars(r)
 	id := params["id"]
 	member := &Member{}
@@ -108,12 +150,12 @@ func (c *HinatazakaApiController) PostMemberId(w http.ResponseWriter, r *http.Re
 		w.WriteHeader(500)
 		return
 	}
-
-	result, err := c.service.PostMemberId(id, *member)
+	
+	result, err := c.service.PutMembersId(id, *member)
 	if err != nil {
 		w.WriteHeader(500)
 		return
 	}
-
+	
 	EncodeJSONResponse(result, nil, w)
 }

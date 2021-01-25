@@ -4,9 +4,25 @@ info:
   title: Hinatazaka API
   version: 1.0.0
 servers:
-- url: http://localhost:8080
+- url: https://localhost/api
 paths:
-  /member/{id}:
+  /members/{id}:
+    delete:
+      description: メンバーの情報を削除する
+      operationId: delete-members-id
+      parameters:
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          description: OK
+      tags:
+      - hinatazaka
     get:
       description: メンバーの情報を取得する
       operationId: get-member-id
@@ -36,9 +52,9 @@ paths:
       summary: メンバー情報
       tags:
       - hinatazaka
-    post:
-      description: メンバーの情報を登録する
-      operationId: post-member-id
+    put:
+      description: メンバーの情報を更新する
+      operationId: put-members-id
       parameters:
       - explode: false
         in: path
@@ -52,8 +68,13 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/Member'
+        description: 更新するメンバー情報
       responses:
         "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Member'
           description: OK
       tags:
       - hinatazaka
@@ -101,6 +122,25 @@ paths:
       summary: 全メンバー情報
       tags:
       - hinatazaka
+    post:
+      description: 新しいメンバーを追加する
+      operationId: post-members
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Member'
+        description: 新しいメンバー情報
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Member'
+          description: OK
+      tags:
+      - hinatazaka
+  /member/add: {}
 components:
   schemas:
     Member:

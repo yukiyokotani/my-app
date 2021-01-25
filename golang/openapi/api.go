@@ -18,10 +18,12 @@ import (
 // The HinatazakaApiRouter implementation should parse necessary information from the http request, 
 // pass the data to a HinatazakaApiServicer to perform the required actions, then write the service results to the http response.
 type HinatazakaApiRouter interface { 
+	DeleteMembersId(http.ResponseWriter, *http.Request)
 	GetDiscographyId(http.ResponseWriter, *http.Request)
 	GetMemberId(http.ResponseWriter, *http.Request)
 	GetMembers(http.ResponseWriter, *http.Request)
-	PostMemberId(http.ResponseWriter, *http.Request)
+	PostMembers(http.ResponseWriter, *http.Request)
+	PutMembersId(http.ResponseWriter, *http.Request)
 }
 
 
@@ -30,8 +32,10 @@ type HinatazakaApiRouter interface {
 // while the service implementation can ignored with the .openapi-generator-ignore file 
 // and updated with the logic required for the API.
 type HinatazakaApiServicer interface { 
+	DeleteMembersId(string) (interface{}, error)
 	GetDiscographyId(string) (interface{}, error)
 	GetMemberId(int64) (interface{}, error)
 	GetMembers() (interface{}, error)
-	PostMemberId(string, Member) (interface{}, error)
+	PostMembers(Member) (interface{}, error)
+	PutMembersId(string, Member) (interface{}, error)
 }
