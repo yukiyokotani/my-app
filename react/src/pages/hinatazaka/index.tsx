@@ -1,4 +1,4 @@
-import { Container, Grid } from '@material-ui/core';
+import { Box, Container, Grid, Paper } from '@material-ui/core';
 import React from 'react';
 import Layout from '../../components/Layout';
 import HinatazakaMemberForm from '../../redux/hinatazaka/HinatazakaMemberForm';
@@ -9,10 +9,18 @@ const IndexPage: React.FC = () => (
     <Container maxWidth="md">
       <Grid container spacing={2}>
         <Grid item xl={12} xs={12}>
-          <HinatazakaMembersList />
+          <Paper>
+            <Box p={2}>
+              <HinatazakaMembersList />
+            </Box>
+          </Paper>
         </Grid>
         <Grid item xl={12} xs={12}>
-          <HinatazakaMemberForm />
+          <Paper>
+            <Box p={2}>
+              <HinatazakaMemberForm />
+            </Box>
+          </Paper>
         </Grid>
       </Grid>
     </Container>

@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       flexGrow: 1,
-      marginButtom: theme.spacing(2),
+      marginBottom: theme.spacing(2),
     },
     menuButton: {
       marginRight: theme.spacing(2),
@@ -50,7 +50,7 @@ const Header: React.FC = () => {
           <Link href="/">
             <Button color="inherit">Home</Button>
           </Link>
-          <Link href="/about">
+          <Link href="/counter">
             <Button color="inherit">Counter</Button>
           </Link>
           <Link href="/hinatazaka">

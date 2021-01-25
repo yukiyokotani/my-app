@@ -35,7 +35,6 @@ export const getMemberId = createAsyncThunk<Member, number>(
 export const postMembers = createAsyncThunk<Member, Member>(
   'hinatazaka/postMembers',
   async (member: Member, { rejectWithValue }) => {
-    console.log(member);
     try {
       const response = await hinatazakaApi.postMembers(member);
       return response.data;

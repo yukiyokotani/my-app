@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
-import { Button, Grid, TextField } from '@material-ui/core';
+import { Button, Grid, TextField, Typography } from '@material-ui/core';
 import { useForm, Controller } from 'react-hook-form';
 import { postMembers } from './hinatazakaSlice';
 
@@ -13,21 +13,19 @@ const HinatazakaMemberForm: React.FC = () => {
 
   const onValid = useCallback(
     (member: Member) => {
-      console.log(member);
       dispatch(postMembers(member));
+      reset();
     },
-    [dispatch]
+    [dispatch, reset]
   );
-
-  // const onSubmit = useCallback(() => {
-  //   handleSubmit(onValid);
-  //   reset();
-  // }, [handleSubmit, onValid, reset]);
 
   return (
     <form>
       <Grid container spacing={2}>
-        <Grid item md={4}>
+        <Grid item md={12}>
+          <Typography variant="h5">新規メンバー登録</Typography>
+        </Grid>
+        <Grid item md={6}>
           <Controller
             control={control}
             name="name"
@@ -44,17 +42,18 @@ const HinatazakaMemberForm: React.FC = () => {
             }
           />
         </Grid>
-        <Grid item md={4}>
+        <Grid item md={6}>
           <Controller
             control={control}
             name="age"
-            defaultValue={0}
+            defaultValue={20}
             rules={{ required: '必須項目です。' }}
             as={
               <TextField
                 label="年齢"
                 variant="outlined"
                 type="number"
+                disabled
                 fullWidth
                 error={!!errors.age}
                 helperText={errors.age?.message}
@@ -62,7 +61,7 @@ const HinatazakaMemberForm: React.FC = () => {
             }
           />
         </Grid>
-        <Grid item md={4}>
+        <Grid item md={12} container justify="flex-end">
           <Button
             variant="contained"
             color="primary"
