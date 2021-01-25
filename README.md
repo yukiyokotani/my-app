@@ -4,7 +4,7 @@
 
 ## 構成
 - Server-side: Golang ([Gorilla Mux](https://github.com/gorilla/mux), [SQLX](https://github.com/jmoiron/sqlx))
-- Client-side: React ([TypeScript](https://www.typescriptlang.org/), [Next.js](https://nextjs.org/), [Material UI](https://material-ui.com/))
+- Client-side: React ([TypeScript](https://www.typescriptlang.org/), [Next.js](https://nextjs.org/), [Material UI](https://material-ui.com/), [React Hook Form](https://react-hook-form.com/))
 - Database: Postgres
 - Others:
   - API is defined in the format of OpenAPI 3.0

@@ -95,6 +95,41 @@ export interface Member {
 export const HinatazakaApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
+         * メンバーの情報を削除する
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteMembersId: async (id: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            if (id === null || id === undefined) {
+                throw new RequiredError('id','Required parameter id was null or undefined when calling deleteMembersId.');
+            }
+            const localVarPath = `/members/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarUrlObj.query = {...localVarUrlObj.query, ...localVarQueryParameter, ...options.query};
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * ディスコグラフィー情報を取得する
          * @summary ディスコグラフィー情報
          * @param {string} id 
@@ -142,7 +177,7 @@ export const HinatazakaApiAxiosParamCreator = function (configuration?: Configur
             if (id === null || id === undefined) {
                 throw new RequiredError('id','Required parameter id was null or undefined when calling getMemberId.');
             }
-            const localVarPath = `/member/{id}`
+            const localVarPath = `/members/{id}`
                 .replace(`{${"id"}}`, encodeURIComponent(String(id)));
             const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
             let baseOptions;
@@ -197,25 +232,59 @@ export const HinatazakaApiAxiosParamCreator = function (configuration?: Configur
             };
         },
         /**
-         * メンバーの情報を登録する
-         * @param {string} id 
-         * @param {Member} [member] 
+         * 新しいメンバーを追加する
+         * @param {Member} [member] 新しいメンバー情報
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        postMemberId: async (id: string, member?: Member, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'id' is not null or undefined
-            if (id === null || id === undefined) {
-                throw new RequiredError('id','Required parameter id was null or undefined when calling postMemberId.');
-            }
-            const localVarPath = `/member/{id}`
-                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+        postMembers: async (member?: Member, options: any = {}): Promise<RequestArgs> => {
+            const localVarPath = `/members`;
             const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
             let baseOptions;
             if (configuration) {
                 baseOptions = configuration.baseOptions;
             }
             const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            localVarUrlObj.query = {...localVarUrlObj.query, ...localVarQueryParameter, ...options.query};
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            const needsSerialization = (typeof member !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(member !== undefined ? member : {}) : (member || "");
+
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * メンバーの情報を更新する
+         * @param {string} id 
+         * @param {Member} [member] 更新するメンバー情報
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        putMembersId: async (id: string, member?: Member, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            if (id === null || id === undefined) {
+                throw new RequiredError('id','Required parameter id was null or undefined when calling putMembersId.');
+            }
+            const localVarPath = `/members/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
@@ -245,6 +314,19 @@ export const HinatazakaApiAxiosParamCreator = function (configuration?: Configur
  */
 export const HinatazakaApiFp = function(configuration?: Configuration) {
     return {
+        /**
+         * メンバーの情報を削除する
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async deleteMembersId(id: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await HinatazakaApiAxiosParamCreator(configuration).deleteMembersId(id, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
         /**
          * ディスコグラフィー情報を取得する
          * @summary ディスコグラフィー情報
@@ -287,14 +369,27 @@ export const HinatazakaApiFp = function(configuration?: Configuration) {
             };
         },
         /**
-         * メンバーの情報を登録する
-         * @param {string} id 
-         * @param {Member} [member] 
+         * 新しいメンバーを追加する
+         * @param {Member} [member] 新しいメンバー情報
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async postMemberId(id: string, member?: Member, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await HinatazakaApiAxiosParamCreator(configuration).postMemberId(id, member, options);
+        async postMembers(member?: Member, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Member>> {
+            const localVarAxiosArgs = await HinatazakaApiAxiosParamCreator(configuration).postMembers(member, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * メンバーの情報を更新する
+         * @param {string} id 
+         * @param {Member} [member] 更新するメンバー情報
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async putMembersId(id: string, member?: Member, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Member>> {
+            const localVarAxiosArgs = await HinatazakaApiAxiosParamCreator(configuration).putMembersId(id, member, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -309,6 +404,15 @@ export const HinatazakaApiFp = function(configuration?: Configuration) {
  */
 export const HinatazakaApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
     return {
+        /**
+         * メンバーの情報を削除する
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteMembersId(id: string, options?: any): AxiosPromise<void> {
+            return HinatazakaApiFp(configuration).deleteMembersId(id, options).then((request) => request(axios, basePath));
+        },
         /**
          * ディスコグラフィー情報を取得する
          * @summary ディスコグラフィー情報
@@ -339,14 +443,23 @@ export const HinatazakaApiFactory = function (configuration?: Configuration, bas
             return HinatazakaApiFp(configuration).getMembers(options).then((request) => request(axios, basePath));
         },
         /**
-         * メンバーの情報を登録する
-         * @param {string} id 
-         * @param {Member} [member] 
+         * 新しいメンバーを追加する
+         * @param {Member} [member] 新しいメンバー情報
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        postMemberId(id: string, member?: Member, options?: any): AxiosPromise<void> {
-            return HinatazakaApiFp(configuration).postMemberId(id, member, options).then((request) => request(axios, basePath));
+        postMembers(member?: Member, options?: any): AxiosPromise<Member> {
+            return HinatazakaApiFp(configuration).postMembers(member, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * メンバーの情報を更新する
+         * @param {string} id 
+         * @param {Member} [member] 更新するメンバー情報
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        putMembersId(id: string, member?: Member, options?: any): AxiosPromise<Member> {
+            return HinatazakaApiFp(configuration).putMembersId(id, member, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -358,6 +471,17 @@ export const HinatazakaApiFactory = function (configuration?: Configuration, bas
  * @extends {BaseAPI}
  */
 export class HinatazakaApi extends BaseAPI {
+    /**
+     * メンバーの情報を削除する
+     * @param {string} id 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof HinatazakaApi
+     */
+    public deleteMembersId(id: string, options?: any) {
+        return HinatazakaApiFp(this.configuration).deleteMembersId(id, options).then((request) => request(this.axios, this.basePath));
+    }
+
     /**
      * ディスコグラフィー情報を取得する
      * @summary ディスコグラフィー情報
@@ -394,15 +518,26 @@ export class HinatazakaApi extends BaseAPI {
     }
 
     /**
-     * メンバーの情報を登録する
-     * @param {string} id 
-     * @param {Member} [member] 
+     * 新しいメンバーを追加する
+     * @param {Member} [member] 新しいメンバー情報
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof HinatazakaApi
      */
-    public postMemberId(id: string, member?: Member, options?: any) {
-        return HinatazakaApiFp(this.configuration).postMemberId(id, member, options).then((request) => request(this.axios, this.basePath));
+    public postMembers(member?: Member, options?: any) {
+        return HinatazakaApiFp(this.configuration).postMembers(member, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * メンバーの情報を更新する
+     * @param {string} id 
+     * @param {Member} [member] 更新するメンバー情報
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof HinatazakaApi
+     */
+    public putMembersId(id: string, member?: Member, options?: any) {
+        return HinatazakaApiFp(this.configuration).putMembersId(id, member, options).then((request) => request(this.axios, this.basePath));
     }
 
 }

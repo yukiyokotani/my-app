@@ -5,7 +5,7 @@ import { getMembers } from './hinatazakaSlice';
 import { RootState } from '../../utils/store';
 import { Member } from '../../../api';
 
-const HinatazakaMember: React.FC = () => {
+const HinatazakaMembersList: React.FC = () => {
   const members = useSelector<RootState, Member[] | undefined>(
     (state) => state.hinatazaka.members
   );
@@ -13,13 +13,15 @@ const HinatazakaMember: React.FC = () => {
 
   useEffect(() => {
     dispatch(getMembers());
-  }, []);
+  }, [dispatch]);
 
   return (
     <div>
-      <Typography variant="h5">日向坂46</Typography>
+      <Typography variant="h5" gutterBottom>
+        日向坂46
+      </Typography>
       {members?.map((member) => (
-        <Typography variant="body1" key={member.id}>
+        <Typography variant="body1" gutterBottom key={member.id}>
           {member?.name}
         </Typography>
       ))}
@@ -27,4 +29,4 @@ const HinatazakaMember: React.FC = () => {
   );
 };
 
-export default HinatazakaMember;
+export default HinatazakaMembersList;

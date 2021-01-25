@@ -26,38 +26,53 @@ func NewHinatazakaApiService() HinatazakaApiServicer {
 	return &HinatazakaApiService{}
 }
 
+// DeleteMembersId -
+func (s *HinatazakaApiService) DeleteMembersId(id string) (interface{}, error) {
+	// TODO - update DeleteMembersId with the required logic for this service method.
+	// Add api_hinatazaka_service.go to the .openapi-generator-ignore to avoid overwriting this service implementation when updating open api generation.
+	return nil, errors.New("service method 'DeleteMembersId' not implemented")
+}
+
 // GetDiscographyId - ディスコグラフィー情報
 func (s *HinatazakaApiService) GetDiscographyId(id string) (interface{}, error) {
-	discography := Discography{}
+	d := Discography{}
 	row := database.DB.QueryRow("SELECT * FROM discographies WHERE id=$1", id)
-	err := row.Scan(&discography.Id, &discography.Title, &discography.Type, &discography.CenterId, &discography.CreatedAt)
-	return discography, err
+	err := row.Scan(&d.Id, &d.Title, &d.Type, &d.CenterId, &d.CreatedAt)
+	return d, err
+}
+
+// GetMemberId - メンバー情報
+func (s *HinatazakaApiService) GetMemberId(id int64) (interface{}, error) {
+	m := Member{}
+	// err = database.DB.Get(&m, "SELECT * FROM members LIMIT 1")
+	row := database.DB.QueryRow("SELECT * FROM members WHERE id=$1", id)
+	err := row.Scan(&m.Id, &m.Name, &m.Age, &m.CreatedAt)
+	return m, err
 }
 
 // GetMembers - 全メンバー情報
 func (s *HinatazakaApiService) GetMembers() (interface{}, error) {
-	members := []Member{}
+	ms := []Member{}
 	rows, err := database.DB.Queryx("SELECT * FROM members")
 	for rows.Next() {
 		var m Member
 		err = rows.StructScan(&m)
-		members = append(members, m)
+		ms = append(ms, m)
 	}
-	return members, err
+	return ms, err
 }
 
-// GetMemberId -メンバー情報
-func (s *HinatazakaApiService) GetMemberId(id int64) (interface{}, error) {
-	member := Member{}
-	// err = database.DB.Get(&member, "SELECT * FROM members LIMIT 1")
-	row := database.DB.QueryRow("SELECT * FROM members WHERE id=$1", id)
-	err := row.Scan(&member.Id, &member.Name, &member.Age, &member.CreatedAt)
-	return member, err
+// PostMembers -
+func (s *HinatazakaApiService) PostMembers(member Member) (interface{}, error) {
+	m := Member{}
+	row := database.DB.QueryRow("INSERT INTO members (name, age) VALUES ($1, $2) RETURNING *", member.Name, member.Age)
+	err := row.Scan(&m.Id, &m.Name, &m.Age, &m.CreatedAt)
+	return m, err
 }
 
-// PostMemberId -メンバー情報を更新する
-func (s *HinatazakaApiService) PostMemberId(id string, member Member) (interface{}, error) {
-	// TODO - update PostMemberId with the required logic for this service method.
+// PutMembersId -
+func (s *HinatazakaApiService) PutMembersId(id string, member Member) (interface{}, error) {
+	// TODO - update PutMembersId with the required logic for this service method.
 	// Add api_hinatazaka_service.go to the .openapi-generator-ignore to avoid overwriting this service implementation when updating open api generation.
-	return nil, errors.New("service method 'PostMemberId' not implemented")
+	return nil, errors.New("service method 'PutMembersId' not implemented")
 }

@@ -17,11 +17,27 @@ export const getMembers = createAsyncThunk<Member[]>(
   }
 );
 
-export const getMember = createAsyncThunk<Member, number>(
-  'hinatazaka/getMember',
+export const getMemberId = createAsyncThunk<Member, number>(
+  'hinatazaka/getMemberId',
   async (id: number, { rejectWithValue }) => {
     try {
       const response = await hinatazakaApi.getMemberId(id);
+      return response.data;
+    } catch (err) {
+      if (!err.response) {
+        throw err;
+      }
+      return rejectWithValue(err.response.value);
+    }
+  }
+);
+
+export const postMembers = createAsyncThunk<Member, Member>(
+  'hinatazaka/postMembers',
+  async (member: Member, { rejectWithValue }) => {
+    console.log(member);
+    try {
+      const response = await hinatazakaApi.postMembers(member);
       return response.data;
     } catch (err) {
       if (!err.response) {
@@ -60,14 +76,25 @@ const hinatazakaSlice = createSlice({
       state.isPending = false;
     });
     // GetMember
-    builder.addCase(getMember.pending, (state) => {
+    builder.addCase(getMemberId.pending, (state) => {
       state.isPending = true;
     });
-    builder.addCase(getMember.fulfilled, (state, action) => {
+    builder.addCase(getMemberId.fulfilled, (state, action) => {
       state.isPending = false;
       state.member = action.payload;
     });
-    builder.addCase(getMember.rejected, (state) => {
+    builder.addCase(getMemberId.rejected, (state) => {
+      state.isPending = false;
+    });
+    // PostMembers
+    builder.addCase(postMembers.pending, (state) => {
+      state.isPending = true;
+    });
+    builder.addCase(postMembers.fulfilled, (state, action) => {
+      state.isPending = false;
+      state.member = action.payload;
+    });
+    builder.addCase(postMembers.rejected, (state) => {
       state.isPending = false;
     });
   },

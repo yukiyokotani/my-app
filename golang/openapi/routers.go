@@ -104,7 +104,7 @@ func CORSMiddleware(next http.Handler) http.Handler {
 		fmt.Println(r.Header.Get("Origin"), os.Getenv("APP_ROOT"))
 		if r.Header.Get("Origin") == os.Getenv("APP_ROOT") {
 			w.Header().Set("Access-Control-Allow-Origin", r.Header.Get("Origin"))
-			w.Header().Set("Access-Control-Allow-Methods", "GET, OPTIONS, POST, DELETE")
+			w.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
 			w.Header().Set("Access-Control-Allow-Headers", "Content-Type, X-Requested-With")
 		}
 		next.ServeHTTP(w, r)
