@@ -3,6 +3,7 @@ import React, { useEffect } from 'react';
 import { AppProps } from 'next/app';
 import { Provider, useSelector } from 'react-redux';
 import { CssBaseline, ThemeProvider } from '@material-ui/core';
+import { SnackbarProvider } from 'notistack';
 import store, { RootState } from '../utils/store';
 import theme from '../utils/theme';
 
@@ -15,8 +16,10 @@ const StyledApp: React.FC<AppProps> = ({ Component, pageProps }) => {
 
   return (
     <ThemeProvider theme={theme(mode)}>
-      <CssBaseline />
-      <Component {...pageProps} />
+      <SnackbarProvider>
+        <CssBaseline />
+        <Component {...pageProps} />
+      </SnackbarProvider>
     </ThemeProvider>
   );
 };

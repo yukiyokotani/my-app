@@ -2,21 +2,28 @@ import React, { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import { Button, Grid, TextField, Typography } from '@material-ui/core';
 import { useForm, Controller } from 'react-hook-form';
+import { useSnackbar } from 'notistack';
 import { postMembers } from './hinatazakaSlice';
 
 import { Member } from '../../../api';
 
 const HinatazakaMemberForm: React.FC = () => {
+  const { enqueueSnackbar } = useSnackbar();
   const dispatch = useDispatch();
 
   const { control, handleSubmit, errors, reset } = useForm<Member>();
 
-  const onValid = useCallback(
-    (member: Member) => {
-      dispatch(postMembers(member));
-      reset();
+  const onPostMembers = useCallback(
+    async (member: Member) => {
+      try {
+        await dispatch(postMembers(member));
+        enqueueSnackbar('メンバーを追加しました。', { variant: 'success' });
+        reset({ name: '' });
+      } catch (err) {
+        enqueueSnackbar('メンバーの追加に失敗しました。', { variant: 'error' });
+      }
     },
-    [dispatch, reset]
+    [dispatch, enqueueSnackbar, reset]
   );
 
   return (
@@ -65,7 +72,7 @@ const HinatazakaMemberForm: React.FC = () => {
           <Button
             variant="contained"
             color="primary"
-            onClick={handleSubmit(onValid)}
+            onClick={handleSubmit(onPostMembers)}
           >
             登録
           </Button>

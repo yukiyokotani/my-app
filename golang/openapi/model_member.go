@@ -20,7 +20,7 @@ type Member struct {
 	Id int64 `json:"id,omitempty"`
 
 	// 名前
-	Name string `json:"name,omitempty"`
+	Name string `json:"name"`
 
 	// 年齢
 	Age float32 `json:"age,omitempty"`
