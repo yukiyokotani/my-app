@@ -20,7 +20,7 @@ type Discography struct {
 	Id float32 `json:"id,omitempty"`
 
 	// タイトル
-	Title string `json:"title,omitempty"`
+	Title string `json:"title"`
 
 	// 種別
 	Type string `json:"type,omitempty"`

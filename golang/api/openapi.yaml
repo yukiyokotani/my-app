@@ -20,6 +20,10 @@ paths:
         style: simple
       responses:
         "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Member'
           description: OK
       tags:
       - hinatazaka
@@ -165,6 +169,8 @@ components:
           description: レコードの作成日時
           format: date-time
           type: string
+      required:
+      - name
       title: Member
       type: object
     Discography:
@@ -192,5 +198,7 @@ components:
           description: レコードの作成日時
           format: date-time
           type: string
+      required:
+      - title
       title: Discography
       type: object

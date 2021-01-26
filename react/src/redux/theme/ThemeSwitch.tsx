@@ -1,8 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import FormControllLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
-import WbIncandescentIcon from '@material-ui/icons/WbIncandescent';
 import themeSlice from './themeSlice';
 import { RootState } from '../../utils/store';
 

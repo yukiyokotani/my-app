@@ -24,7 +24,7 @@
 
 main.go
 **/routers.go
-**/api_hinatazaka_service
+**/api_hinatazaka_service.go
 README.md
 Dockerfile
 .gitignore

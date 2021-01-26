@@ -28,9 +28,10 @@ func NewHinatazakaApiService() HinatazakaApiServicer {
 
 // DeleteMembersId -
 func (s *HinatazakaApiService) DeleteMembersId(id string) (interface{}, error) {
-	// TODO - update DeleteMembersId with the required logic for this service method.
-	// Add api_hinatazaka_service.go to the .openapi-generator-ignore to avoid overwriting this service implementation when updating open api generation.
-	return nil, errors.New("service method 'DeleteMembersId' not implemented")
+	m := Member{}
+	row := database.DB.QueryRow("DELETE FROM members WHERE id=$1 RETURNING *", id)
+	err := row.Scan(&m.Id, &m.Name, &m.Age, &m.CreatedAt)
+	return m, err
 }
 
 // GetDiscographyId - ディスコグラフィー情報

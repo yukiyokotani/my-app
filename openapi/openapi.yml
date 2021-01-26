@@ -44,6 +44,10 @@ paths:
       responses:
         '200':
           description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Member'
       description: メンバーの情報を削除する
       tags:
         - hinatazaka
@@ -149,6 +153,8 @@ components:
           type: string
           description: レコードの作成日時
           format: date-time
+      required:
+        - name
     Discography:
       title: Discography
       type: object
@@ -170,6 +176,8 @@ components:
           type: string
           description: レコードの作成日時
           format: date-time
+      required:
+        - title
 servers:
   - description: ''
     url: 'https://localhost/api'

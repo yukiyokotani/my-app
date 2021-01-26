@@ -36,7 +36,7 @@ export interface Discography {
      * @type {string}
      * @memberof Discography
      */
-    title?: string;
+    title: string;
     /**
      * 種別
      * @type {string}
@@ -73,7 +73,7 @@ export interface Member {
      * @type {string}
      * @memberof Member
      */
-    name?: string;
+    name: string;
     /**
      * 年齢
      * @type {number}
@@ -320,7 +320,7 @@ export const HinatazakaApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async deleteMembersId(id: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+        async deleteMembersId(id: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Member>> {
             const localVarAxiosArgs = await HinatazakaApiAxiosParamCreator(configuration).deleteMembersId(id, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -410,7 +410,7 @@ export const HinatazakaApiFactory = function (configuration?: Configuration, bas
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        deleteMembersId(id: string, options?: any): AxiosPromise<void> {
+        deleteMembersId(id: string, options?: any): AxiosPromise<Member> {
             return HinatazakaApiFp(configuration).deleteMembersId(id, options).then((request) => request(axios, basePath));
         },
         /**
