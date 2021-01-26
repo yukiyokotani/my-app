@@ -5,13 +5,15 @@ import Layout from '../components/Layout';
 import Counter from '../redux/counter/Counter';
 
 const AboutPage: React.FC = () => (
-  <Layout title="About | Next.js + TypeScript Example">
+  <Layout title="Counter | my-app">
     <Container maxWidth="md">
       <Grid container spacing={2}>
         <Grid item xl={12} xs={12}>
           <Paper>
             <Box p={2}>
-              <Typography variant="h5">Redux Counter</Typography>
+              <Typography variant="h4" gutterBottom>
+                Redux Counter
+              </Typography>
               <Counter />
             </Box>
           </Paper>
