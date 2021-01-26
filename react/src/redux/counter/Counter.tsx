@@ -27,7 +27,9 @@ const Counter: React.FC = () => {
 
   return (
     <div className={classes.root}>
-      <Typography variant="h5">{count}</Typography>
+      <Typography variant="h1" gutterBottom>
+        {count}
+      </Typography>
       <div className={classes.button}>
         <Button
           variant="contained"

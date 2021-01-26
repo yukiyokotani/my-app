@@ -21,7 +21,7 @@ const HinatazakaMembersList: React.FC = () => {
     <div>
       <Box display="flex">
         <Box flexGrow={1}>
-          <Typography variant="h5" gutterBottom>
+          <Typography variant="h4" gutterBottom>
             日向坂46
           </Typography>
         </Box>

@@ -23,7 +23,7 @@ const HinatazakaMemberForm: React.FC = () => {
     <form>
       <Grid container spacing={2}>
         <Grid item md={12}>
-          <Typography variant="h5">新規メンバー登録</Typography>
+          <Typography variant="h4">新規メンバー登録</Typography>
         </Grid>
         <Grid item md={6}>
           <Controller

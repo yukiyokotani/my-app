@@ -44,8 +44,8 @@ const Header: React.FC = () => {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" className={classes.title}>
-            Title
+          <Typography variant="h4" className={classes.title}>
+            my-app
           </Typography>
           <Link href="/">
             <Button color="inherit">Home</Button>
@@ -54,7 +54,7 @@ const Header: React.FC = () => {
             <Button color="inherit">Counter</Button>
           </Link>
           <Link href="/hinatazaka">
-            <Button color="inherit">日向坂</Button>
+            <Button color="inherit">日向坂46</Button>
           </Link>
           <ThemeSwitch />
         </ToolBar>
