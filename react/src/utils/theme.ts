@@ -47,8 +47,8 @@ const themeConfigs: {
         active: colors.grey[600],
       },
       background: {
-        default: colors.grey[100],
-        paper: colors.grey[100],
+        default: colors.grey[200],
+        paper: colors.grey[200],
       },
       primary: {
         main: '#2196f3',
