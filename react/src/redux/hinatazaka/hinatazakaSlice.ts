@@ -64,12 +64,14 @@ export const deleteMembersId = createAsyncThunk<Member, string>(
 
 type State = {
   isPending: boolean;
+  isFetching: boolean;
   members: Member[];
   member?: Member;
 };
 
 const initialState: State = {
   isPending: false,
+  isFetching: false,
   members: [],
 };
 
@@ -81,9 +83,11 @@ const hinatazakaSlice = createSlice({
     // GetMembers
     builder.addCase(getMembers.pending, (state) => {
       state.isPending = true;
+      state.isFetching = true;
     });
     builder.addCase(getMembers.fulfilled, (state, action) => {
       state.isPending = false;
+      state.isFetching = false;
       const sortedMembers = action.payload.sort(
         (a, b) => (a.id ?? -1) - (b.id ?? -1)
       );
@@ -91,6 +95,7 @@ const hinatazakaSlice = createSlice({
     });
     builder.addCase(getMembers.rejected, (state) => {
       state.isPending = false;
+      state.isFetching = false;
     });
     // GetMembersId
     builder.addCase(getMemberId.pending, (state) => {

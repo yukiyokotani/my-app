@@ -14,4 +14,9 @@ const store = configureStore({
 });
 
 export type RootState = ReturnType<typeof rootReducer>;
+
+// Promiseを返すようにする
+// https://react-redux.js.org/using-react-redux/static-typing#typing-the-usedispatch-hook
+export type AppDispatch = typeof store.dispatch;
+
 export default store;
