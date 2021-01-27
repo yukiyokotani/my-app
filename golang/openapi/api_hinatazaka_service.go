@@ -10,8 +10,6 @@
 package openapi
 
 import (
-	"errors"
-
 	database "github.com/GIT_USER_ID/GIT_REPO_ID/database"
 )
 
@@ -73,7 +71,8 @@ func (s *HinatazakaApiService) PostMembers(member Member) (interface{}, error) {
 
 // PutMembersId -
 func (s *HinatazakaApiService) PutMembersId(id string, member Member) (interface{}, error) {
-	// TODO - update PutMembersId with the required logic for this service method.
-	// Add api_hinatazaka_service.go to the .openapi-generator-ignore to avoid overwriting this service implementation when updating open api generation.
-	return nil, errors.New("service method 'PutMembersId' not implemented")
+	m := Member{}
+	row := database.DB.QueryRow("UPDATE members SET name=$1, age=$2 WHERE id=$3 RETURNING *", member.Name, member.Age, id)
+	err := row.Scan(&m.Id, &m.Name, &m.Age, &m.CreatedAt)
+	return m, err
 }
