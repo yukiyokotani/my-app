@@ -12,16 +12,16 @@ const handle = app.getRequestHandler();
 app.prepare().then(() => {
   const server = express();
 
-  server.use(
-    '/api',
-    createProxyMiddleware({
-      target: 'http://golang:8080',
-      // pathRewrite: {
-      //   '^/api': '',
-      // },
-      changeOrigin: true,
-    })
-  );
+  // server.use(
+  //   '/api',
+  //   createProxyMiddleware({
+  //     target: 'http://golang:8080',
+  //     // pathRewrite: {
+  //     //   '^/api': '',
+  //     // },
+  //     changeOrigin: true,
+  //   })
+  // );
 
   server.all('*', (req, res) => handle(req, res));
 

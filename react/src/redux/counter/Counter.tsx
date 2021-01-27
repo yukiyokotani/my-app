@@ -4,7 +4,7 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import counterSlice from './counterSlice';
-import { RootState } from '../../utils/store';
+import { AppDispatch, RootState } from '../../utils/store';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -23,7 +23,7 @@ const Counter: React.FC = () => {
   const classes = useStyles();
   const { increment, decrement } = counterSlice.actions;
   const count = useSelector<RootState, number>((state) => state.counter);
-  const dispatch = useDispatch();
+  const dispatch: AppDispatch = useDispatch();
 
   return (
     <div className={classes.root}>
