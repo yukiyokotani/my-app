@@ -23,10 +23,13 @@ func main() {
 	database.SetUp()
 	defer database.DB.Close()
 
+	AuthApiService := openapi.NewAuthApiService()
+	AuthApiController := openapi.NewAuthApiController(AuthApiService)
+
 	HinatazakaApiService := openapi.NewHinatazakaApiService()
 	HinatazakaApiController := openapi.NewHinatazakaApiController(HinatazakaApiService)
 
-	router := openapi.NewRouter(HinatazakaApiController)
+	router := openapi.NewRouter(AuthApiController, HinatazakaApiController)
 
 	log.Fatal(http.ListenAndServe(":8080", router))
 }

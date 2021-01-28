@@ -132,6 +132,22 @@ paths:
               $ref: '#/components/schemas/Member'
         description: 新しいメンバー情報
   /member/add: {}
+  /auth:
+    get:
+      summary: ''
+      operationId: get-auth
+      responses:
+        '200':
+          description: OK
+      tags:
+        - auth
+  /callback:
+    get:
+      summary: Your GET endpoint
+      tags:
+        - auth
+      responses: {}
+      operationId: get-callback
 components:
   schemas:
     Member:

@@ -23,6 +23,8 @@
 #!docs/README.md
 
 main.go
+**/api_auth.go
+**/api_auth_service.go
 **/routers.go
 **/api_hinatazaka_service.go
 README.md

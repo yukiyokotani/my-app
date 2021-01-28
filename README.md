@@ -50,8 +50,10 @@ Application Server (Go), Web Server (NGINX), Reverse Proxy Server (NGINX), DB �
   ```
 
 ### デプロイ用コンテナの起動
-`.env.example` を参考に `.env` ファイルを用意した上、以下を実行する。  
-デプロイ用コンテナでは Go のビルド、Next.js の静的ファイル出力が行われる。
-```bash
-docker-compose -f docker-compose.prod.yml up -d
-```
+- `.env.example` を参考に `.env` ファイルを用意する。Postgres の情報と OpenId Connect の情報、どちらとも正しい情報に書き換える必要がある。OpenId Connect については Google アカウントによる認証を想定している。詳しくは `auth_api.go` を参照。
+- 以下を実行する。  
+  ```bash
+  docker-compose -f docker-compose.prod.yml up -d
+  ```
+  デプロイ用コンテナでは Go のビルド、Next.js の静的ファイル出力が行われる。
+

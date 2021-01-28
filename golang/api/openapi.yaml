@@ -145,6 +145,21 @@ paths:
       tags:
       - hinatazaka
   /member/add: {}
+  /auth:
+    get:
+      operationId: get-auth
+      responses:
+        "200":
+          description: OK
+      tags:
+      - auth
+  /callback:
+    get:
+      operationId: get-callback
+      responses: {}
+      summary: Your GET endpoint
+      tags:
+      - auth
 components:
   schemas:
     Member:
