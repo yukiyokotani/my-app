@@ -14,6 +14,14 @@ import (
 )
 
 
+// AuthApiRouter defines the required methods for binding the api requests to a responses for the AuthApi
+// The AuthApiRouter implementation should parse necessary information from the http request, 
+// pass the data to a AuthApiServicer to perform the required actions, then write the service results to the http response.
+type AuthApiRouter interface { 
+	GetAuth(http.ResponseWriter, *http.Request)
+	GetAuthSignout(http.ResponseWriter, *http.Request)
+	GetCallback(http.ResponseWriter, *http.Request)
+}
 // HinatazakaApiRouter defines the required methods for binding the api requests to a responses for the HinatazakaApi
 // The HinatazakaApiRouter implementation should parse necessary information from the http request, 
 // pass the data to a HinatazakaApiServicer to perform the required actions, then write the service results to the http response.
@@ -24,6 +32,17 @@ type HinatazakaApiRouter interface {
 	GetMembers(http.ResponseWriter, *http.Request)
 	PostMembers(http.ResponseWriter, *http.Request)
 	PutMembersId(http.ResponseWriter, *http.Request)
+}
+
+
+// AuthApiServicer defines the api actions for the AuthApi service
+// This interface intended to stay up to date with the openapi yaml used to generate it, 
+// while the service implementation can ignored with the .openapi-generator-ignore file 
+// and updated with the logic required for the API.
+type AuthApiServicer interface { 
+	GetAuth() (interface{}, error)
+	GetAuthSignout() (interface{}, error)
+	GetCallback() (interface{}, error)
 }
 
 

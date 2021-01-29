@@ -18,6 +18,7 @@ import (
 	"strconv"
 
 	"github.com/gorilla/mux"
+	"github.com/gorilla/sessions"
 )
 
 // A Route defines the parameters for an api endpoint
@@ -35,6 +36,10 @@ type Routes []Route
 type Router interface {
 	Routes() Routes
 }
+
+var (
+	Store = sessions.NewCookieStore([]byte(os.Getenv("SESSION_KEY")))
+)
 
 // NewRouter creates a new router for any number of api routers
 func NewRouter(routers ...Router) *mux.Router {

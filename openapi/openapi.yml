@@ -51,6 +51,8 @@ paths:
       description: メンバーの情報を削除する
       tags:
         - hinatazaka
+      security:
+        - my-app-key: []
     put:
       summary: ''
       operationId: put-members-id
@@ -131,7 +133,37 @@ paths:
             schema:
               $ref: '#/components/schemas/Member'
         description: 新しいメンバー情報
+      security:
+        - my-app-key: []
   /member/add: {}
+  /auth/signin:
+    get:
+      summary: サインイン
+      operationId: get-auth
+      responses:
+        '200':
+          description: OK
+      tags:
+        - auth
+      description: OpenIDを使ってアプリケーションにサインインする
+    parameters: []
+  /auth/callback:
+    get:
+      summary: OPからのリダイレクト先
+      tags:
+        - auth
+      responses: {}
+      operationId: get-callback
+      description: OpenID Providerからのリダイレクトを受けるエンドポイント
+    parameters: []
+  /auth/signout:
+    get:
+      summary: サインアウト
+      tags:
+        - auth
+      responses: {}
+      operationId: get-auth-signout
+      description: アプリケーションからサインアウトする
 components:
   schemas:
     Member:
@@ -178,6 +210,13 @@ components:
           format: date-time
       required:
         - title
+  securitySchemes:
+    my-app-key:
+      name: session-key
+      type: apiKey
+      in: cookie
 servers:
   - description: ''
     url: 'https://localhost/api'
+security:
+  - my-app-key: []
