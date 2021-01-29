@@ -19,6 +19,7 @@ import (
 // pass the data to a AuthApiServicer to perform the required actions, then write the service results to the http response.
 type AuthApiRouter interface { 
 	GetAuth(http.ResponseWriter, *http.Request)
+	GetAuthSignout(http.ResponseWriter, *http.Request)
 	GetCallback(http.ResponseWriter, *http.Request)
 }
 // HinatazakaApiRouter defines the required methods for binding the api requests to a responses for the HinatazakaApi
@@ -40,6 +41,7 @@ type HinatazakaApiRouter interface {
 // and updated with the logic required for the API.
 type AuthApiServicer interface { 
 	GetAuth() (interface{}, error)
+	GetAuthSignout() (interface{}, error)
 	GetCallback() (interface{}, error)
 }
 

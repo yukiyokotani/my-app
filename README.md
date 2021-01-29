@@ -50,7 +50,8 @@ Application Server (Go), Web Server (NGINX), Reverse Proxy Server (NGINX), DB �
   ```
 
 ### デプロイ用コンテナの起動
-- `.env.example` を参考に `.env` ファイルを用意する。Postgres の情報と OpenId Connect の情報、どちらとも正しい情報に書き換える必要がある。OpenId Connect については Google アカウントによる認証を想定している。詳しくは `auth_api.go` を参照。
+- `.env.example` を参考に `.env` ファイルを用意する。Postgres の情報と OpenID Connect の情報、どちらとも正しい情報に書き換える必要がある。OpenID Connect については Google アカウントによる認証を想定している。詳しくは `auth_api.go` を参照。
+- 現在の API の設計上、OpenID による認証を有効にするとき、Google の認証情報設定でリダイレクトURLのパスは `api/auth/callback` にする必要がある。
 - 以下を実行する。  
   ```bash
   docker-compose -f docker-compose.prod.yml up -d

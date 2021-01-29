@@ -14,7 +14,7 @@ import (
 )
 
 // AuthApiService is a service that implents the logic for the AuthApiServicer
-// This service should implement the business logic for every endpoint for the AuthApi API.
+// This service should implement the business logic for every endpoint for the AuthApi API. 
 // Include any external packages or services that will be required by this service.
 type AuthApiService struct {
 }
@@ -24,14 +24,21 @@ func NewAuthApiService() AuthApiServicer {
 	return &AuthApiService{}
 }
 
-// GetAuth -
+// GetAuth - サインイン
 func (s *AuthApiService) GetAuth() (interface{}, error) {
-	// TODO - update GetCallback with the required logic for this service method.
+	// TODO - update GetAuth with the required logic for this service method.
 	// Add api_auth_service.go to the .openapi-generator-ignore to avoid overwriting this service implementation when updating open api generation.
-	return nil, errors.New("service method 'GetCallback' not implemented")
+	return nil, errors.New("service method 'GetAuth' not implemented")
 }
 
-// GetCallback - Your GET endpoint
+// GetAuthSignout - サインアウト
+func (s *AuthApiService) GetAuthSignout() (interface{}, error) {
+	// TODO - update GetAuthSignout with the required logic for this service method.
+	// Add api_auth_service.go to the .openapi-generator-ignore to avoid overwriting this service implementation when updating open api generation.
+	return nil, errors.New("service method 'GetAuthSignout' not implemented")
+}
+
+// GetCallback - OPからのリダイレクト先
 func (s *AuthApiService) GetCallback() (interface{}, error) {
 	// TODO - update GetCallback with the required logic for this service method.
 	// Add api_auth_service.go to the .openapi-generator-ignore to avoid overwriting this service implementation when updating open api generation.

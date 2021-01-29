@@ -11,7 +11,9 @@ package openapi
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
+	"os"
 	"strings"
 
 	"github.com/gorilla/mux"
@@ -24,12 +26,12 @@ type HinatazakaApiController struct {
 
 // NewHinatazakaApiController creates a default api controller
 func NewHinatazakaApiController(s HinatazakaApiServicer) Router {
-	return &HinatazakaApiController{ service: s }
+	return &HinatazakaApiController{service: s}
 }
 
 // Routes returns all of the api route for the HinatazakaApiController
 func (c *HinatazakaApiController) Routes() Routes {
-	return Routes{ 
+	return Routes{
 		{
 			"DeleteMembersId",
 			strings.ToUpper("Delete"),
@@ -69,8 +71,17 @@ func (c *HinatazakaApiController) Routes() Routes {
 	}
 }
 
-// DeleteMembersId - 
-func (c *HinatazakaApiController) DeleteMembersId(w http.ResponseWriter, r *http.Request) { 
+// DeleteMembersId -
+func (c *HinatazakaApiController) DeleteMembersId(w http.ResponseWriter, r *http.Request) {
+	session, _ := Store.Get(r, os.Getenv("SESSION_COOKIE_NAME"))
+	fmt.Printf("name: %s, email: %s", session.Values["name"], session.Values["email"])
+
+	// 認証済みかどうかチェックする。
+	if auth, ok := session.Values["authenticated"].(bool); !ok || !auth {
+		http.Error(w, "Forbidden", http.StatusForbidden)
+		return
+	}
+
 	params := mux.Vars(r)
 	id := params["id"]
 	result, err := c.service.DeleteMembersId(id)
@@ -78,12 +89,12 @@ func (c *HinatazakaApiController) DeleteMembersId(w http.ResponseWriter, r *http
 		w.WriteHeader(500)
 		return
 	}
-	
+
 	EncodeJSONResponse(result, nil, w)
 }
 
 // GetDiscographyId - ディスコグラフィー情報
-func (c *HinatazakaApiController) GetDiscographyId(w http.ResponseWriter, r *http.Request) { 
+func (c *HinatazakaApiController) GetDiscographyId(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
 	id := params["id"]
 	result, err := c.service.GetDiscographyId(id)
@@ -91,58 +102,67 @@ func (c *HinatazakaApiController) GetDiscographyId(w http.ResponseWriter, r *htt
 		w.WriteHeader(500)
 		return
 	}
-	
+
 	EncodeJSONResponse(result, nil, w)
 }
 
 // GetMemberId - メンバー情報
-func (c *HinatazakaApiController) GetMemberId(w http.ResponseWriter, r *http.Request) { 
+func (c *HinatazakaApiController) GetMemberId(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
 	id, err := parseIntParameter(params["id"])
 	if err != nil {
 		w.WriteHeader(500)
 		return
 	}
-	
+
 	result, err := c.service.GetMemberId(id)
 	if err != nil {
 		w.WriteHeader(500)
 		return
 	}
-	
+
 	EncodeJSONResponse(result, nil, w)
 }
 
 // GetMembers - 全メンバー情報
-func (c *HinatazakaApiController) GetMembers(w http.ResponseWriter, r *http.Request) { 
+func (c *HinatazakaApiController) GetMembers(w http.ResponseWriter, r *http.Request) {
 	result, err := c.service.GetMembers()
 	if err != nil {
 		w.WriteHeader(500)
 		return
 	}
-	
+
 	EncodeJSONResponse(result, nil, w)
 }
 
-// PostMembers - 
-func (c *HinatazakaApiController) PostMembers(w http.ResponseWriter, r *http.Request) { 
+// PostMembers -
+func (c *HinatazakaApiController) PostMembers(w http.ResponseWriter, r *http.Request) {
+	session, _ := Store.Get(r, os.Getenv("SESSION_COOKIE_NAME"))
+	fmt.Printf("name: %s, email: %s", session.Values["name"], session.Values["email"])
+
+	// 認証済みかどうかチェックする。
+	if auth, ok := session.Values["authenticated"].(bool); !ok || !auth {
+		http.Error(w, "Forbidden", http.StatusForbidden)
+		return
+	}
+
 	member := &Member{}
 	if err := json.NewDecoder(r.Body).Decode(&member); err != nil {
 		w.WriteHeader(500)
 		return
 	}
-	
+
 	result, err := c.service.PostMembers(*member)
 	if err != nil {
 		w.WriteHeader(500)
 		return
 	}
-	
+
 	EncodeJSONResponse(result, nil, w)
 }
 
-// PutMembersId - 
-func (c *HinatazakaApiController) PutMembersId(w http.ResponseWriter, r *http.Request) { 
+// PutMembersId -
+func (c *HinatazakaApiController) PutMembersId(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
 	id := params["id"]
 	member := &Member{}
@@ -150,12 +170,12 @@ func (c *HinatazakaApiController) PutMembersId(w http.ResponseWriter, r *http.Re
 		w.WriteHeader(500)
 		return
 	}
-	
+
 	result, err := c.service.PutMembersId(id, *member)
 	if err != nil {
 		w.WriteHeader(500)
 		return
 	}
-	
+
 	EncodeJSONResponse(result, nil, w)
 }

@@ -5,6 +5,8 @@ info:
   version: 1.0.0
 servers:
 - url: https://localhost/api
+security:
+- my-app-key: []
 paths:
   /members/{id}:
     delete:
@@ -25,6 +27,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/Member'
           description: OK
+      security:
+      - my-app-key: []
       tags:
       - hinatazaka
     get:
@@ -142,22 +146,35 @@ paths:
               schema:
                 $ref: '#/components/schemas/Member'
           description: OK
+      security:
+      - my-app-key: []
       tags:
       - hinatazaka
   /member/add: {}
-  /auth:
+  /auth/signin:
     get:
+      description: OpenIDを使ってアプリケーションにサインインする
       operationId: get-auth
       responses:
         "200":
           description: OK
+      summary: サインイン
       tags:
       - auth
-  /callback:
+  /auth/callback:
     get:
+      description: OpenID Providerからのリダイレクトを受けるエンドポイント
       operationId: get-callback
       responses: {}
-      summary: Your GET endpoint
+      summary: OPからのリダイレクト先
+      tags:
+      - auth
+  /auth/signout:
+    get:
+      description: アプリケーションからサインアウトする
+      operationId: get-auth-signout
+      responses: {}
+      summary: サインアウト
       tags:
       - auth
 components:
@@ -217,3 +234,8 @@ components:
       - title
       title: Discography
       type: object
+  securitySchemes:
+    my-app-key:
+      in: cookie
+      name: session-key
+      type: apiKey

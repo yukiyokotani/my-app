@@ -89,6 +89,238 @@ export interface Member {
 }
 
 /**
+ * AuthApi - axios parameter creator
+ * @export
+ */
+export const AuthApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * OpenIDを使ってアプリケーションにサインインする
+         * @summary サインイン
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getAuth: async (options: any = {}): Promise<RequestArgs> => {
+            const localVarPath = `/auth/signin`;
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication my-app-key required
+
+
+    
+            localVarUrlObj.query = {...localVarUrlObj.query, ...localVarQueryParameter, ...options.query};
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * アプリケーションからサインアウトする
+         * @summary サインアウト
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getAuthSignout: async (options: any = {}): Promise<RequestArgs> => {
+            const localVarPath = `/auth/signout`;
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication my-app-key required
+
+
+    
+            localVarUrlObj.query = {...localVarUrlObj.query, ...localVarQueryParameter, ...options.query};
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * OpenID Providerからのリダイレクトを受けるエンドポイント
+         * @summary OPからのリダイレクト先
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getCallback: async (options: any = {}): Promise<RequestArgs> => {
+            const localVarPath = `/auth/callback`;
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication my-app-key required
+
+
+    
+            localVarUrlObj.query = {...localVarUrlObj.query, ...localVarQueryParameter, ...options.query};
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * AuthApi - functional programming interface
+ * @export
+ */
+export const AuthApiFp = function(configuration?: Configuration) {
+    return {
+        /**
+         * OpenIDを使ってアプリケーションにサインインする
+         * @summary サインイン
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getAuth(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await AuthApiAxiosParamCreator(configuration).getAuth(options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * アプリケーションからサインアウトする
+         * @summary サインアウト
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getAuthSignout(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await AuthApiAxiosParamCreator(configuration).getAuthSignout(options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * OpenID Providerからのリダイレクトを受けるエンドポイント
+         * @summary OPからのリダイレクト先
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getCallback(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await AuthApiAxiosParamCreator(configuration).getCallback(options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+    }
+};
+
+/**
+ * AuthApi - factory interface
+ * @export
+ */
+export const AuthApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    return {
+        /**
+         * OpenIDを使ってアプリケーションにサインインする
+         * @summary サインイン
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getAuth(options?: any): AxiosPromise<void> {
+            return AuthApiFp(configuration).getAuth(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * アプリケーションからサインアウトする
+         * @summary サインアウト
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getAuthSignout(options?: any): AxiosPromise<void> {
+            return AuthApiFp(configuration).getAuthSignout(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * OpenID Providerからのリダイレクトを受けるエンドポイント
+         * @summary OPからのリダイレクト先
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getCallback(options?: any): AxiosPromise<void> {
+            return AuthApiFp(configuration).getCallback(options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * AuthApi - object-oriented interface
+ * @export
+ * @class AuthApi
+ * @extends {BaseAPI}
+ */
+export class AuthApi extends BaseAPI {
+    /**
+     * OpenIDを使ってアプリケーションにサインインする
+     * @summary サインイン
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof AuthApi
+     */
+    public getAuth(options?: any) {
+        return AuthApiFp(this.configuration).getAuth(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * アプリケーションからサインアウトする
+     * @summary サインアウト
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof AuthApi
+     */
+    public getAuthSignout(options?: any) {
+        return AuthApiFp(this.configuration).getAuthSignout(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * OpenID Providerからのリダイレクトを受けるエンドポイント
+     * @summary OPからのリダイレクト先
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof AuthApi
+     */
+    public getCallback(options?: any) {
+        return AuthApiFp(this.configuration).getCallback(options).then((request) => request(this.axios, this.basePath));
+    }
+
+}
+
+
+/**
  * HinatazakaApi - axios parameter creator
  * @export
  */
@@ -115,6 +347,8 @@ export const HinatazakaApiAxiosParamCreator = function (configuration?: Configur
             const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
+
+            // authentication my-app-key required
 
 
     
@@ -152,6 +386,8 @@ export const HinatazakaApiAxiosParamCreator = function (configuration?: Configur
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
+            // authentication my-app-key required
+
 
     
             localVarUrlObj.query = {...localVarUrlObj.query, ...localVarQueryParameter, ...options.query};
@@ -188,6 +424,8 @@ export const HinatazakaApiAxiosParamCreator = function (configuration?: Configur
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
+            // authentication my-app-key required
+
 
     
             localVarUrlObj.query = {...localVarUrlObj.query, ...localVarQueryParameter, ...options.query};
@@ -218,6 +456,8 @@ export const HinatazakaApiAxiosParamCreator = function (configuration?: Configur
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
+            // authentication my-app-key required
+
 
     
             localVarUrlObj.query = {...localVarUrlObj.query, ...localVarQueryParameter, ...options.query};
@@ -247,6 +487,8 @@ export const HinatazakaApiAxiosParamCreator = function (configuration?: Configur
             const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
+
+            // authentication my-app-key required
 
 
     
@@ -287,6 +529,8 @@ export const HinatazakaApiAxiosParamCreator = function (configuration?: Configur
             const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
+
+            // authentication my-app-key required
 
 
     
