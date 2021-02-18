@@ -12,7 +12,10 @@ export const customAxios = axios.create({
 
 customAxios.interceptors.request.use(
   (config) => {
-    config.headers['X-CSRF-Token'] = store.getState().session.csrfToken;
+    const { csrfToken } = store.getState().session;
+    if (csrfToken) {
+      config.headers['X-CSRF-Token'] = csrfToken;
+    }
     return config;
   },
   (error) => Promise.reject(error)
@@ -22,8 +25,9 @@ const { setCsrfToken } = sessionSlice.actions;
 
 customAxios.interceptors.response.use(
   (response) => {
-    if (response.headers['x-csrf-token']) {
-      store.dispatch(setCsrfToken(response.headers['x-csrf-token']));
+    const csrfToken = response.headers['x-csrf-token'];
+    if (csrfToken) {
+      store.dispatch(setCsrfToken(csrfToken));
     }
     return response;
   },
