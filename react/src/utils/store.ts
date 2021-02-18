@@ -2,10 +2,12 @@ import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import counterSlice from '../redux/counter/counterSlice';
 import themeSlice from '../redux/theme/themeSlice';
 import hinatazakaSlice from '../redux/hinatazaka/hinatazakaSlice';
+import sessionSlice from '../redux/session/sessionSlice';
 
 const rootReducer = combineReducers({
-  counter: counterSlice.reducer,
+  session: sessionSlice.reducer,
   theme: themeSlice.reducer,
+  counter: counterSlice.reducer,
   hinatazaka: hinatazakaSlice.reducer,
 });
 

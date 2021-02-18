@@ -11,12 +11,12 @@ package openapi
 
 import (
 	"encoding/json"
-	"fmt"
 	"io/ioutil"
 	"net/http"
 	"os"
 	"strconv"
 
+	"github.com/gorilla/csrf"
 	"github.com/gorilla/mux"
 	"github.com/gorilla/sessions"
 )
@@ -43,8 +43,11 @@ var (
 
 // NewRouter creates a new router for any number of api routers
 func NewRouter(routers ...Router) *mux.Router {
+	CsrfMiddleware := csrf.Protect([]byte("32-byte-long-auth-key"))
+
 	router := mux.NewRouter().StrictSlash(true)
-	router.Use(CORSMiddleware)
+	router.Use(CorsMiddleware)
+	router.Use(CsrfMiddleware)
 
 	for _, api := range routers {
 		for _, route := range api.Routes() {
@@ -104,14 +107,11 @@ func parseIntParameter(param string) (int64, error) {
 	return strconv.ParseInt(param, 10, 64)
 }
 
-func CORSMiddleware(next http.Handler) http.Handler {
+func CorsMiddleware(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		fmt.Println(r.Header.Get("Origin"), os.Getenv("APP_ROOT"))
-		if r.Header.Get("Origin") == os.Getenv("APP_ROOT") {
-			w.Header().Set("Access-Control-Allow-Origin", r.Header.Get("Origin"))
-			w.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
-			w.Header().Set("Access-Control-Allow-Headers", "Content-Type, X-Requested-With")
-		}
+		w.Header().Set("Access-Control-Allow-Origin", "https://localhost")
+		w.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
+		w.Header().Set("Access-Control-Allow-Headers", "Content-Type, X-Requested-With")
 		next.ServeHTTP(w, r)
 	})
 }

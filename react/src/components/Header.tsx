@@ -56,6 +56,12 @@ const Header: React.FC = () => {
           <Link href="/hinatazaka">
             <Button color="inherit">日向坂46</Button>
           </Link>
+          <Link href="/api/auth/signin">
+            <Button color="inherit">SIGN IN</Button>
+          </Link>
+          <Link href="/api/auth/signout">
+            <Button color="inherit">SIGN OUT</Button>
+          </Link>
           <ThemeSwitch />
         </ToolBar>
       </AppBar>
