@@ -16,6 +16,7 @@ import (
 	"os"
 	"strings"
 
+	"github.com/gorilla/csrf"
 	"github.com/gorilla/mux"
 )
 
@@ -74,7 +75,7 @@ func (c *HinatazakaApiController) Routes() Routes {
 // DeleteMembersId -
 func (c *HinatazakaApiController) DeleteMembersId(w http.ResponseWriter, r *http.Request) {
 	session, _ := Store.Get(r, os.Getenv("SESSION_COOKIE_NAME"))
-	fmt.Printf("name: %s, email: %s", session.Values["name"], session.Values["email"])
+	fmt.Printf("name: %[1]s, email: %[2]s\n", session.Values["name"], session.Values["email"])
 
 	// 認証済みかどうかチェックする。
 	if auth, ok := session.Values["authenticated"].(bool); !ok || !auth {
@@ -132,13 +133,19 @@ func (c *HinatazakaApiController) GetMembers(w http.ResponseWriter, r *http.Requ
 		return
 	}
 
+	// 認証済みかどうかチェックし、認証済みならCSRFトークンをヘッダにセットする
+	session, _ := Store.Get(r, os.Getenv("SESSION_COOKIE_NAME"))
+	if session.Values["authenticated"].(bool) {
+		w.Header().Set("X-CSRF-Token", csrf.Token(r))
+	}
+
 	EncodeJSONResponse(result, nil, w)
 }
 
 // PostMembers -
 func (c *HinatazakaApiController) PostMembers(w http.ResponseWriter, r *http.Request) {
 	session, _ := Store.Get(r, os.Getenv("SESSION_COOKIE_NAME"))
-	fmt.Printf("name: %s, email: %s", session.Values["name"], session.Values["email"])
+	fmt.Printf("name: %[1]s, email: %[2]s\n", session.Values["name"], session.Values["email"])
 
 	// 認証済みかどうかチェックする。
 	if auth, ok := session.Values["authenticated"].(bool); !ok || !auth {

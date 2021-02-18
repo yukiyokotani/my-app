@@ -90,6 +90,7 @@ func (c *AuthApiController) GetAuthSignout(w http.ResponseWriter, r *http.Reques
 	// 認証を無効にする。
 	session.Values["authenticated"] = false
 	session.Save(r, w)
+	http.Redirect(w, r, "/", http.StatusFound)
 }
 
 // GetCallback - OPからのリダイレクト先
