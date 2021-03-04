@@ -1,2 +1,3 @@
 DROP TABLE IF EXISTS members;
 DROP TABLE IF EXISTS discographies;
+DROP TABLE IF EXISTS admin;

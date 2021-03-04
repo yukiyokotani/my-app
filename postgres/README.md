@@ -8,7 +8,7 @@
 migrate create -ext sql -dir migrations -seq init_schema
 ```
 - `up` と `down` の2つのスクリプトが生成される。  
-- `up` のスクリプトには dbdiagram.io で生成した PostgreSQL のテーブル生成の [SQL 文](https://dbdiagram.io/d/5fdf053c9a6c525a03bbb94a) をコピペする。diagram.io の使い方も [このYouTube動画](https://www.youtube.com/watch?v=rx6CPDK_5mU) が参考になる。
+- `up` のスクリプトには [dbdiagram.io](https://dbdiagram.io/d/5fdf053c9a6c525a03bbb94a) から Export した PostgreSQL 用のテーブル生成の SQL をコピペする。diagram.io の使い方も [このYouTube動画](https://www.youtube.com/watch?v=rx6CPDK_5mU) が参考になる。
 
   ![Diagram](../images/Hinatazaka.png?raw=true "Screenshot")
 
@@ -20,8 +20,6 @@ migrate create -ext sql -dir migrations -seq init_schema
 
 ### 初回以降の migration
 これから調査
-
-
 ## Table Plus (GUIツール) によるデータベース操作
 本プロジェクトのルートディレクトリにおいて、
 ```

@@ -13,6 +13,13 @@ CREATE TABLE "discographies" (
   "created_at" timestamptz NOT NULL DEFAULT (now())
 );
 
+CREATE TABLE "admin" (
+  "id" bigserial PRIMARY KEY,
+  "name" varchar NOT NULL,
+  "email" varchar NOT NULL,
+  "created_at" timestamptz NOT NULL DEFAULT (now())
+);
+
 ALTER TABLE "discographies" ADD FOREIGN KEY ("center_id") REFERENCES "members" ("id");
 
 CREATE INDEX ON "members" ("name");

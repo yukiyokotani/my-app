@@ -16,6 +16,7 @@ import (
 	"os"
 	"strings"
 
+	database "github.com/GIT_USER_ID/GIT_REPO_ID/database"
 	"github.com/gorilla/csrf"
 	"github.com/gorilla/mux"
 )
@@ -135,7 +136,11 @@ func (c *HinatazakaApiController) GetMembers(w http.ResponseWriter, r *http.Requ
 
 	// 認証済みかどうかチェックし、認証済みならCSRFトークンをヘッダにセットする
 	session, _ := Store.Get(r, os.Getenv("SESSION_COOKIE_NAME"))
-	if session.Values["authenticated"].(bool) {
+	row := database.DB.QueryRow("SELECT EXISTS (SELECT * FROM admin WHERE email = $1)", session.Values["email"])
+	var exists bool
+	err = row.Scan(&exists)
+	hasAuth := session.Values["authenticated"].(bool) && exists
+	if hasAuth {
 		w.Header().Set("X-CSRF-Token", csrf.Token(r))
 	}
 
